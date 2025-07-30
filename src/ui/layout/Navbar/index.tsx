@@ -1,10 +1,15 @@
+import { layoutConstraintsCn } from "@/lib/constants/ui";
 import Image from "next/image";
 import Link from "next/link";
 
 export const Navbar = () => {
   return (
-    <nav className={"flex border-b-1 border-bordercolor bg-background p-4"}>
-      <div className={"flex flex-1 justify-between items-center"}>
+    <nav
+      className={"flex border-bordercolor bg-foreground p-1 sticky top-0 z-10"}
+    >
+      <div
+        className={`${layoutConstraintsCn} flex flex-1 justify-between items-center`}
+      >
         <Link href="/">
           <Image
             src={"/img/logo_2.png"}

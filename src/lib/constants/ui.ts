@@ -1,8 +1,2 @@
-export const DEFAULT_LIST_COLS = {
-  base: 1,
-  sm: 2,
-  md: 3,
-  lg: 4,
-  xl: 5,
-  "2xl": 6,
-};
+export const layoutConstraintsCn =
+  "flex-1 container mx-auto px-4 sm:px-6 lg:px-8";

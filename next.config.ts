@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: { remotePatterns: [new URL("https://loremflickr.com/**")] },
+  images: { domains: ["picsum.photos", "loremflickr.com"] },
 };
 
 export default nextConfig;
