@@ -1,6 +1,7 @@
 import { List } from "@/ui/reusable/List";
 import { SearchForm } from "./components/SearchForm";
 import { productApi } from "@/lib/api/product";
+import { Main } from "@/ui/layout/Main";
 import { PageProps } from "../../../../.next/types/app/page";
 
 export default async function Search({ searchParams }: PageProps) {
@@ -9,9 +10,10 @@ export default async function Search({ searchParams }: PageProps) {
   const data = await productApi.searchProducts(phrase);
 
   return (
-    <div className={"flex flex-1 flex-col gap-4"}>
+    <Main>
+      <h1>{"simple-ecommerce"}</h1>
       <SearchForm />
       {data && <List data={data} />}
-    </div>
+    </Main>
   );
 }
