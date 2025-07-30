@@ -12,7 +12,7 @@ export const SearchForm = () => {
       >
         <TextField.Slot />
         <TextField.Slot>
-          <Button type="submit" children={"Szukaj"} />
+          <Button type="submit">{"Szukaj"}</Button>
         </TextField.Slot>
       </TextField.Root>
     </form>
