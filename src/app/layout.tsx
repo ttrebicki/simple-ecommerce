@@ -12,7 +12,9 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
         className={`${inter.className} antialiased min-h-screen flex flex-col justify-between bg-background`}
       >
         <Navbar />
-        {children}
+        <main className={"flex-1 container mx-auto px-4 sm:px-6 lg:px-8"}>
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
