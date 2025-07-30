@@ -2,6 +2,7 @@ import { List } from "@/ui/reusable/List";
 import { SearchForm } from "./components/SearchForm";
 import { productApi } from "@/lib/api/product";
 import { ISearchProps } from "./types";
+import { Main } from "@/ui/layout/Main";
 
 export default async function Search({ searchParams }: ISearchProps) {
   const { search } = await searchParams;
@@ -9,9 +10,10 @@ export default async function Search({ searchParams }: ISearchProps) {
   const data = await productApi.searchProducts(phrase);
 
   return (
-    <div className={"flex flex-1 flex-col gap-4"}>
+    <Main>
+      <h1>{"simple-ecommerce"}</h1>
       <SearchForm />
       {data && <List data={data} />}
-    </div>
+    </Main>
   );
 }

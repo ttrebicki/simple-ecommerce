@@ -12,10 +12,10 @@ export const Navbar = () => {
       >
         <Link href="/">
           <Image
-            src={"/img/logo_2.png"}
+            src={"/img/logo.png"}
             alt={"simple ecommerce logo"}
-            width={128}
-            height={96}
+            width={32}
+            height={32}
           />
         </Link>
         <div className={"flex justify-between"}>
