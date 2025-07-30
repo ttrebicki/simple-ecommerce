@@ -1,10 +1,10 @@
 import { List } from "@/ui/reusable/List";
 import { SearchForm } from "./components/SearchForm";
 import { productApi } from "@/lib/api/product";
-import { ISearchProps } from "./types";
 import { Main } from "@/ui/layout/Main";
+import { PageProps } from "../../../../.next/types/app/page";
 
-export default async function Search({ searchParams }: ISearchProps) {
+export default async function Search({ searchParams }: PageProps) {
   const { search } = await searchParams;
   const phrase = typeof search === "string" ? search : "";
   const data = await productApi.searchProducts(phrase);

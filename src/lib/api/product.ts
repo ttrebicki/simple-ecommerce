@@ -8,7 +8,7 @@ export const productApi = {
       const res = await fetcher.get(uri.getProduct(id));
 
       return res;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("api.product.getProduct", error); // TODO: add some nice error handling like Toast display
     }
   },
@@ -18,7 +18,7 @@ export const productApi = {
       const res = await fetcher.get(uri.searchProducts(phrase));
 
       return res;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("api.product.searchProducts", error); // TODO: add some nice error handling like Toast display
     }
   },
