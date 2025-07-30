@@ -4,7 +4,7 @@ export const fetcher = {
       const res = await fetch(uri, { method: "GET" });
 
       return res.json();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error); // TODO: add some nice error handling like Toast display
     }
   },
@@ -13,7 +13,7 @@ export const fetcher = {
       const res = await fetch(uri, { method: "POST", body });
 
       return res.json();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error); // TODO: add some nice error handling like Toast display
     }
   },
@@ -22,7 +22,7 @@ export const fetcher = {
       const res = await fetch(uri, { method: "PUT", body });
 
       return res.json();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error); // TODO: add some nice error handling like Toast display
     }
   },
@@ -31,7 +31,7 @@ export const fetcher = {
       const res = await fetch(uri, { method: "DELETE", body });
 
       return res.json();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error); // TODO: add some nice error handling like Toast display
     }
   },
