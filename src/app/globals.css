@@ -37,7 +37,7 @@ h1 {
 }
 
 h2 {
-  font-size: var(--text-6xl);
+  font-size: var(--text-5xl);
 }
 
 h3 {
@@ -54,4 +54,8 @@ h5 {
 
 h6 {
   font-size: var(--text-xl);
+}
+
+a:hover {
+  text-decoration: underline;
 }

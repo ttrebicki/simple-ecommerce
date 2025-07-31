@@ -1,5 +1,8 @@
 import { IProduct } from "@/lib/types/product";
 
 export interface IListProps {
-  data: IProduct[];
+  initialData: IProduct[];
+  phrase?: string;
+  limit?: number;
+  isFetchMoreDisabled?: boolean;
 }

@@ -13,13 +13,33 @@ export const productApi = {
     }
   },
 
-  searchProducts: async (phrase: string): Promise<IProduct[] | undefined> => {
+  searchProducts: async (
+    phrase: string,
+    page: number,
+    limit: number
+  ): Promise<IProduct[] | undefined> => {
     try {
-      const res = await fetcher.get(uri.searchProducts(phrase));
+      const res = await fetcher.get(uri.searchProducts(phrase, page, limit));
 
       return res;
     } catch (error: unknown) {
       console.error("api.product.searchProducts", error); // TODO: add some nice error handling like Toast display
+    }
+  },
+
+  proxySearchProducts: async (
+    phrase: string,
+    page: number,
+    limit: number
+  ): Promise<IProduct[] | undefined> => {
+    try {
+      const res = await fetcher.get(
+        uri.proxySearchProducts(phrase, page, limit)
+      );
+
+      return res;
+    } catch (error: unknown) {
+      console.error("api.product.proxySearchProducts", error); // TODO: add some nice error handling like Toast display
     }
   },
 };

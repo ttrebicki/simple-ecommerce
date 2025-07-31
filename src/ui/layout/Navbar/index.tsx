@@ -4,9 +4,7 @@ import Link from "next/link";
 
 export const Navbar = () => {
   return (
-    <nav
-      className={"flex border-bordercolor bg-foreground p-1 sticky top-0 z-10"}
-    >
+    <nav className={"flex p-1 sticky top-0 z-10"}>
       <div
         className={`${layoutConstraintsCn} flex flex-1 justify-between items-center`}
       >
@@ -14,8 +12,8 @@ export const Navbar = () => {
           <Image
             src={"/img/logo.png"}
             alt={"simple ecommerce logo"}
-            width={32}
-            height={32}
+            width={48}
+            height={48}
           />
         </Link>
         <div className={"flex justify-between"}>
