@@ -1,4 +1,5 @@
 import { layoutConstraintsCn } from "@/lib/constants/ui";
+import { Button } from "@/ui/reusable/Button";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,7 +18,9 @@ export const Navbar = () => {
           />
         </Link>
         <div className={"flex justify-between"}>
-          <Link href="/koszyk">Koszyk</Link>
+          <Link href="/cart">
+            <Button variant="outlined">{"Cart"}</Button>
+          </Link>
         </div>
       </div>
     </nav>

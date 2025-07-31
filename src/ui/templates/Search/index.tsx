@@ -11,7 +11,7 @@ export default async function Search({ searchParams }: PageProps) {
 
   return (
     <Main>
-      <h1>{"simple-ecommerce"}</h1>
+      <h1 className={"text-shadow"}>{"simple-ecommerce"}</h1>
       <SearchForm />
       {data && <List initialData={data} phrase={phrase} />}
     </Main>

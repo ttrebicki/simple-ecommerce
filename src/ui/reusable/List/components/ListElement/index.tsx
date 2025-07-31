@@ -13,16 +13,16 @@ export const ListElement = ({ item }: IListElementProps) => {
           <Image
             src={imageUrl}
             alt={name}
-            width={300}
-            height={300}
-            className={"flex flex-1 h-[300px] object-cover"}
+            width={450}
+            height={450}
+            className={"flex flex-1 h-[300px] object-contain"}
           />
           <div className={"flex flex-1 flex-col gap-2 p-2"}>
             <div>
               <span>{name}</span>
             </div>
             <div>
-              <span>{price} zł</span>
+              <span>€{price}</span>
             </div>
           </div>
         </Card>

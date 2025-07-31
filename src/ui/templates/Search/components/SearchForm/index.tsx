@@ -8,11 +8,11 @@ export const SearchForm = () => {
         id="search"
         name="search"
         defaultValue={""}
-        placeholder={"Znajdź produkt..."}
+        placeholder={"Find a product..."}
       >
         <TextField.Slot />
         <TextField.Slot>
-          <Button type="submit">{"Szukaj"}</Button>
+          <Button type="submit">{"Search"}</Button>
         </TextField.Slot>
       </TextField.Root>
     </form>
