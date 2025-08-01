@@ -1,6 +1,5 @@
 import { layoutConstraintsCn } from "@/lib/constants/ui";
 import { IconButton } from "@/ui/reusable/IconButton";
-import Image from "next/image";
 import Link from "next/link";
 import { MdShoppingCart } from "react-icons/md";
 

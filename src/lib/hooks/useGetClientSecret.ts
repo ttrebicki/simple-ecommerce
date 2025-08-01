@@ -12,7 +12,7 @@ export const useGetClientSecret = (items: ICartProduct[]) => {
 
         if (res) setClientSecret(res);
       } catch (error) {
-        console.error("useGetClientSecret");
+        console.error("useGetClientSecret", error);
       }
     })();
   }, [items]);

@@ -26,12 +26,12 @@ export default function Buy() {
 
   useEffect(() => {
     if (email) updateEmail(email);
-  }, [email]);
+  }, [email, updateEmail]);
 
   useEffect(() => {
     if (billing) updateBillingAddress(billing);
     if (shipping) updateShippingAddress(shipping);
-  }, [billing, shipping]);
+  }, [billing, shipping, updateBillingAddress, updateShippingAddress]);
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();

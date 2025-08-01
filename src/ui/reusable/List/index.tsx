@@ -32,7 +32,7 @@ export const List = ({
       if (!(res.length < limit)) setPage(page + 1);
       else setIsMore(false);
     }
-  }, [phrase, page, limit, initialData]);
+  }, [phrase, page, limit]);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -43,7 +43,7 @@ export const List = ({
     );
     if (loader.current) obs.observe(loader.current);
     return () => obs.disconnect();
-  }, [handleFetchMore]);
+  }, [handleFetchMore, isMore]);
 
   return (
     <div>
