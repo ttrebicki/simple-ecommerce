@@ -1,6 +1,5 @@
 import { Main } from "@/ui/layout/Main";
 import { productApi } from "@/lib/api/product";
-import { Card } from "@radix-ui/themes";
 import Image from "next/image";
 import { List } from "@/ui/reusable/List";
 import Link from "next/link";
