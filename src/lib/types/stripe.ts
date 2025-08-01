@@ -1,6 +1,5 @@
 import { StripeCheckoutContact } from "@stripe/stripe-js";
 import { ICartProduct } from "./cart";
-import { UseFormHandleSubmit } from "react-hook-form";
 
 export interface ILineItem {
   price_data: {
@@ -26,5 +25,4 @@ export interface IStripeForm {
   phoneNumber?: string;
   billingAddress?: StripeCheckoutContact;
   shippingAddress?: StripeCheckoutContact;
-  handleSubmit: UseFormHandleSubmit<IStripeForm, IStripeForm>;
 }

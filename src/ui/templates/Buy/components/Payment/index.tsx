@@ -7,7 +7,6 @@ export const Payment = ({
   email,
   billingAddress,
   shippingAddress,
-  handleSubmit,
 }: IStripeForm) => {
   const {
     confirm,

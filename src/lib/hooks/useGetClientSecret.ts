@@ -26,7 +26,7 @@ export const useGetClientSecret = (items: ICartProduct[]) => {
     return () => {
       canceled = true;
     };
-  }, [JSON.stringify(items)]);
+  }, [items]);
 
   return {
     clientSecret,

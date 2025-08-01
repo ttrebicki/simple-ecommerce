@@ -14,7 +14,7 @@ import { useGetClientSecret } from "@/lib/hooks/useGetClientSecret";
 import { ICartProduct } from "@/lib/types/cart";
 
 export default function Buy({ products }: { products: ICartProduct[] }) {
-  const { watch, register, handleSubmit } = useForm<IStripeForm>();
+  const { watch, register } = useForm<IStripeForm>();
   const { clientSecret, isSecretLoading } = useGetClientSecret(products);
 
   const email = watch("email");
@@ -71,7 +71,6 @@ export default function Buy({ products }: { products: ICartProduct[] }) {
               email={email}
               billingAddress={billingAddress}
               shippingAddress={shippingAddress}
-              handleSubmit={handleSubmit}
             />
           </CheckoutProvider>
         )}
