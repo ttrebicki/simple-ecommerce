@@ -1,0 +1,38 @@
+import { mapCartToLineItems } from "@/lib/api/stripe";
+import { IStripePaymentBody } from "@/lib/types/stripe";
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
+
+export const runtime = "nodejs"; // force runtime for App Router
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export async function POST(req: Request) {
+  try {
+    const body: IStripePaymentBody = await req.json();
+
+    if (!body)
+      return NextResponse.json({ error: "Bad Request" }, { status: 400 });
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: mapCartToLineItems(body.items),
+      mode: "payment",
+      ui_mode: "custom",
+      return_url: `${process.env.NEXT_PUBLIC_APP_URL}/return?session_id={CHECKOUT_SESSION_ID}`,
+    });
+
+    return NextResponse.json({
+      checkoutSessionClientSecret: session.client_secret,
+    });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      {
+        error: "Internal server error",
+        message:
+          typeof error === "object" && "message" in error! ? error.message : "",
+      },
+      { status: 500 }
+    );
+  }
+}

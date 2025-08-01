@@ -1,7 +1,8 @@
 import { layoutConstraintsCn } from "@/lib/constants/ui";
-import { Button } from "@/ui/reusable/Button";
+import { IconButton } from "@/ui/reusable/IconButton";
 import Image from "next/image";
 import Link from "next/link";
+import { MdShoppingCart } from "react-icons/md";
 
 export const Navbar = () => {
   return (
@@ -9,17 +10,16 @@ export const Navbar = () => {
       <div
         className={`${layoutConstraintsCn} flex flex-1 justify-between items-center`}
       >
-        <Link href="/">
-          <Image
-            src={"/img/logo.png"}
-            alt={"simple ecommerce logo"}
-            width={48}
-            height={48}
-          />
-        </Link>
+        <Link href="/">{"simple-ecommerce"}</Link>
         <div className={"flex justify-between"}>
           <Link href="/cart">
-            <Button variant="outlined">{"Cart"}</Button>
+            <IconButton>
+              <MdShoppingCart
+                size={32}
+                color="var(--text)"
+                className={"height-[200px]"}
+              />
+            </IconButton>
           </Link>
         </div>
       </div>

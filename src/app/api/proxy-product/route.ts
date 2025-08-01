@@ -5,23 +5,20 @@ import { productApi } from "@/lib/api/product";
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const id = parseInt(url.searchParams.get("id") ?? "1", 10);
-  const phrase = url.searchParams.get("phrase") ?? "";
-  const page = parseInt(url.searchParams.get("page") ?? "1", 10);
-  const limit = parseInt(url.searchParams.get("limit") ?? "12", 10);
 
   try {
-    const products = await productApi.searchProducts(phrase, page, limit);
+    const product = await productApi.getProduct(id);
 
-    if (!products) {
+    if (!product) {
       return NextResponse.json(
-        { error: "No products returned" },
+        { error: "No product returned" },
         { status: 502 }
       );
     }
 
-    return NextResponse.json(products);
+    return NextResponse.json(product);
   } catch (err) {
-    console.error("GET /api/products failed:", err);
+    console.error("GET /api/product failed:", err);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

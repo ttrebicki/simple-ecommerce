@@ -1,22 +1,27 @@
 import Link from "next/link";
 import { IListElementProps } from "./types";
 import Image from "next/image";
-import { Card } from "@radix-ui/themes";
+import { Box } from "@/ui/reusable/Box";
 
 export const ListElement = ({ item }: IListElementProps) => {
   const { id, imageUrl, name, price } = item;
 
   return (
-    <li className={"flex flex-col relative max-h-[400px]"}>
+    <li className={"flex flex-col relative"}>
       <Link href={`/product/${id}`}>
-        <Card variant="surface" size={"1"}>
-          <Image
-            src={imageUrl}
-            alt={name}
-            width={450}
-            height={450}
-            className={"flex flex-1 h-[300px] object-contain"}
-          />
+        <Box
+          isHover
+          imageSlot={
+            <div className="relative h-[200px] w-[100%]">
+              <Image
+                src={imageUrl}
+                alt={name}
+                fill
+                className={"flex flex-1 object-cover"}
+              />
+            </div>
+          }
+        >
           <div className={"flex flex-1 flex-col gap-2 p-2"}>
             <div>
               <span>{name}</span>
@@ -25,7 +30,7 @@ export const ListElement = ({ item }: IListElementProps) => {
               <span>€{price}</span>
             </div>
           </div>
-        </Card>
+        </Box>
       </Link>
     </li>
   );

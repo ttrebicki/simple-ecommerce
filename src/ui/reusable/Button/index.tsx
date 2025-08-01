@@ -3,6 +3,7 @@ import { IButtonProps } from "./types";
 export const Button = ({
   padding = 2,
   variant = "contained",
+  disabled,
   ...props
 }: IButtonProps) => {
   const variantCn =
@@ -13,7 +14,9 @@ export const Button = ({
   return (
     <button
       {...props}
-      className={`${variantCn} cursor-pointer rounded-sm p-${padding} ${props.className}`}
+      className={`${variantCn} cursor-pointer rounded-sm ${
+        disabled ? "opacity-50 cursor-default pointer-none:" : ""
+      } p-${padding} ${props.className}`}
     />
   );
 };
