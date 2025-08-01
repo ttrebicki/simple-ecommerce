@@ -1,59 +1,32 @@
 "use client";
 
+import { stripe } from "@/lib/api/stripe";
+import { interUrl } from "@/lib/constants/fonts";
+import { appearance } from "@/lib/constants/stripe";
 import { IStripeForm } from "@/lib/types/stripe";
 import { Box } from "@/ui/reusable/Box";
-import { Button } from "@/ui/reusable/Button";
+import Loader from "@/ui/reusable/Loader";
 import { TextField } from "@/ui/reusable/TextField";
-import { PaymentElement, useCheckout } from "@stripe/react-stripe-js";
-import { FormEventHandler, useEffect } from "react";
+import { CheckoutProvider } from "@stripe/react-stripe-js";
 import { useForm } from "react-hook-form";
+import { Payment } from "./components/Payment";
+import { useGetClientSecret } from "@/lib/hooks/useGetClientSecret";
+import { ICartProduct } from "@/lib/types/cart";
 
-export default function Buy() {
+export default function Buy({ products }: { products: ICartProduct[] }) {
   const { watch, register } = useForm<IStripeForm>();
-
-  const {
-    confirm,
-    canConfirm,
-    updateEmail,
-    updateBillingAddress,
-    updateShippingAddress,
-    total,
-  } = useCheckout();
+  const { clientSecret, isSecretLoading } = useGetClientSecret(products);
 
   const email = watch("email");
-  const billing = watch("billingAddress");
-  const shipping = watch("shippingAddress");
-
-  useEffect(() => {
-    if (email) updateEmail(email);
-  }, [email, updateEmail]);
-
-  useEffect(() => {
-    if (billing) updateBillingAddress(billing);
-    if (shipping) updateShippingAddress(shipping);
-  }, [billing, shipping, updateBillingAddress, updateShippingAddress]);
-
-  const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
-    event.preventDefault();
-
-    try {
-      const res = await confirm();
-
-      if (res.type === "error") {
-        console.error(res.error);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const billingAddress = watch("billingAddress");
+  const shippingAddress = watch("shippingAddress");
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-1 flex-col gap-8">
+    <form className="flex flex-1 flex-col gap-8">
       <Box>
         <div className="flex flex-1 flex-col md:flex-row gap-6">
           <div className="flex flex-1  flex-col gap-1">
             <TextField label={"Email"} {...register("email")} />
-
             <TextField
               label={"Full name"}
               {...register("billingAddress.name")}
@@ -84,21 +57,23 @@ export default function Buy() {
         </div>
       </Box>
       <Box contentClassName={"gap-8 flex flex-1"}>
-        <h3 className="text-4xl">
-          {"Total: " + "€" + (total.total.minorUnitsAmount / 100).toFixed(2)}{" "}
-        </h3>
-        <PaymentElement
-          options={{
-            fields: {
-              billingDetails: {
-                address: { country: "never", postalCode: "never" },
-              },
-            },
-          }}
-        />
-        <Button disabled={!canConfirm} type="submit" className="flex-1">
-          {"PROCEED TO PAYMENT"}
-        </Button>
+        {isSecretLoading && <Loader />}
+        {clientSecret && !isSecretLoading && (
+          <CheckoutProvider
+            key={clientSecret}
+            stripe={stripe}
+            options={{
+              elementsOptions: { appearance, fonts: [{ cssSrc: interUrl }] },
+              fetchClientSecret: async () => clientSecret,
+            }}
+          >
+            <Payment
+              email={email}
+              billingAddress={billingAddress}
+              shippingAddress={shippingAddress}
+            />
+          </CheckoutProvider>
+        )}
       </Box>
     </form>
   );

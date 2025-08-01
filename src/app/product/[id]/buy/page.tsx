@@ -8,16 +8,11 @@ import Loader from "@/ui/reusable/Loader";
 import { Main } from "@/ui/layout/Main";
 import { PageProps } from "../../../../../.next/types/app/product/[id]/buy/page";
 import { useEffect, useState } from "react";
-import { CheckoutProvider } from "@stripe/react-stripe-js";
-import { stripe } from "@/lib/api/stripe";
-import { useGetClientSecret } from "@/lib/hooks/useGetClientSecret";
-import { appearance } from "@/lib/constants/stripe";
-import { interUrl } from "@/lib/constants/fonts";
 
 export default function Page({ params }: PageProps) {
   const [productId, setId] = useState<number>();
   const buyStore = useBuyStore();
-  const { clientSecret } = useGetClientSecret(buyStore.items);
+  const productFromStore = buyStore.items.find((i) => i.id === productId);
   const { data: product, isLoading } = useSWR(
     [productId],
     productApi.proxyGetProduct
@@ -44,25 +39,15 @@ export default function Page({ params }: PageProps) {
           <Item
             item={{
               ...product,
-              quantity:
-                buyStore.items.find((i) => i.id === product.id)?.quantity || 0,
+              quantity: productFromStore?.quantity || 0,
             }}
             {...buyStore}
           />
-          {clientSecret && (
-            <CheckoutProvider
-              key={clientSecret}
-              stripe={stripe}
-              options={{
-                elementsOptions: { appearance, fonts: [{ cssSrc: interUrl }] },
-                fetchClientSecret: async () => clientSecret,
-              }}
-            >
-              <div className={"flex flex-col gap-8"}>
-                <h2>Fill in the form to complete the order</h2>
-                <Buy />
-              </div>
-            </CheckoutProvider>
+          {productFromStore && (
+            <div className={"flex flex-col gap-8"}>
+              <h2>Fill in the form to complete the order</h2>
+              <Buy products={[productFromStore]} />
+            </div>
           )}
         </div>
       )}

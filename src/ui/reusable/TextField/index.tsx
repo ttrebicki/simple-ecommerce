@@ -25,7 +25,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       <div
         className={`flex flex-col ${disabled ? "opacity-50" : ""} ${className}`}
       >
-        <label htmlFor={inputId} className="font-small text-text">
+        <label htmlFor={inputId} className="text-shadow-xs text-text">
           {label}
           {required && (
             <span aria-hidden className="text-red-500">

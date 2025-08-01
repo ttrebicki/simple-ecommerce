@@ -26,25 +26,28 @@ export default async function Product({ params }: PageProps) {
     <Main>
       <h1>{name}</h1>
       <div className={"flex flex-1 gap-4 flex-col md:flex-row"}>
-        <Box className={"flex-2 p-8"}>
-          <p className={"text-2xl"}>{description}</p>
+        <Box className={"flex-2 p-4 lg:p-8"}>
+          <p className={"lg:text-2xl"}>{description}</p>
         </Box>
-        <Image
-          className={"flex-1 h-[350px] object-contain rounded-sm"}
-          src={imageUrl}
-          alt={name}
-          width={350}
-          height={350}
-        />
+        <div className={"flex flex-1 max-h-full min-h-[300] relative"}>
+          <Image
+            className={"flex-1 h-full object-cover rounded-xl"}
+            src={imageUrl}
+            alt={name}
+            fill
+          />
+        </div>
       </div>
-      <Box direction={"row"} className="p-8">
+      <Box direction={"row"} className="p-4 lg:p-8">
         <div className={"flex flex-1 justify-between items-center"}>
-          <p className={"text-2xl"}>
+          <p className={"lg:text-2xl"}>
             {amount > 0 ? `Price: €${price}` : "Currently unavailable"}
           </p>
-          <div className={"flex gap-4"}>
+          <div className={"flex flex-col lg:flex-row gap-2 lg:gap-4"}>
             <Link href={`/product/${product.id}/buy`}>
-              <Button padding={4}>{"Buy now"}</Button>
+              <Button className="w-full lg:w-auto" padding={4}>
+                {"Buy now"}
+              </Button>
             </Link>
             <AddToCartButton
               product={{
