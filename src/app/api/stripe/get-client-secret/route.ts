@@ -14,10 +14,12 @@ export async function POST(req: Request) {
     if (!body)
       return NextResponse.json({ error: "Bad Request" }, { status: 400 });
 
+    const line_items = mapCartToLineItems(body.items);
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
-      line_items: mapCartToLineItems(body.items),
-      mode: "payment",
+      line_items,
+      mode: line_items.length ? "payment" : "setup",
       ui_mode: "custom",
       return_url: `${process.env.NEXT_PUBLIC_APP_URL}/return?session_id={CHECKOUT_SESSION_ID}`,
     });

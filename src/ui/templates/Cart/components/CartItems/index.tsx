@@ -19,7 +19,9 @@ export const Item = ({ item, add, decrement, remove }: ICartItemProps) => {
         direction={"row"}
         className={"flex flex-1 justify-between items-center"}
         imageSlot={
-          <Image fill src={imageUrl} alt={name} className={"object-cover"} />
+          imageUrl?.length && (
+            <Image fill src={imageUrl} alt={name} className={"object-cover"} />
+          )
         }
       >
         <Link href={`/product/${id}`} className={"flex flex-2 gap-8 relative"}>

@@ -35,5 +35,6 @@ export const mapCartToLineItems = (
       unit_amount: Math.round(item.price * 100),
     },
     quantity: item.quantity,
+    // adjustable_quantity: { enabled: true },
   }));
 };
