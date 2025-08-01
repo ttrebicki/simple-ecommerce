@@ -13,6 +13,16 @@ export const productApi = {
     }
   },
 
+  proxyGetProduct: async (id: number): Promise<IProduct | undefined> => {
+    try {
+      const res = await fetcher.get(uri.proxyGetProduct(id));
+
+      return res;
+    } catch (error: unknown) {
+      console.error("api.product.proxyGetProduct", error); // TODO: add some nice error handling like Toast display
+    }
+  },
+
   searchProducts: async (
     phrase: string,
     page: number,

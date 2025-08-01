@@ -1,9 +1,10 @@
 @import "tailwindcss";
+/* @import "@radix-ui/themes/styles.css"; */
 
 :root {
   --background: #efefef;
   --foreground: #171717;
-  --primary-main: #bdf6d9;
+  --primary-main: #6bb38f;
   --secondary-main: #b1bfb7;
   --text: #171717;
 }
@@ -26,34 +27,63 @@
   --color-secondary-main: var(--secondary-main);
 }
 
-body {
-  background: var(--background);
+html {
+  font-size: 16px;
+}
+
+* {
   color: var(--text);
   font-family: "Inter", Arial, Helvetica, sans-serif;
 }
 
 h1 {
-  font-size: var(--text-8xl);
-}
-
-h2 {
-  font-size: var(--text-5xl);
-}
-
-h3 {
   font-size: var(--text-4xl);
 }
 
-h4 {
-  font-size: var(--text-3xl);
-}
-
-h5 {
+h2 {
   font-size: var(--text-2xl);
 }
 
-h6 {
+h3 {
   font-size: var(--text-xl);
+}
+
+h4 {
+  font-size: var(--text-lg);
+}
+
+h5 {
+  font-size: var(--text-base);
+}
+
+h6 {
+  font-size: var(--text-base);
+}
+
+@media screen and (min-width: theme("screens.lg")) {
+  h1 {
+    font-size: var(--text-8xl);
+  }
+
+  h2 {
+    font-size: var(--text-5xl);
+  }
+
+  h3 {
+    font-size: var(--text-4xl);
+  }
+
+  h4 {
+    font-size: var(--text-3xl);
+  }
+
+  h5 {
+    font-size: var(--text-2xl);
+  }
+
+  h6 {
+    font-size: var(--text-xl);
+  }
 }
 
 a:hover {

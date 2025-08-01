@@ -1,20 +1,24 @@
-import { Button, TextField } from "@radix-ui/themes";
+import { Button } from "@/ui/reusable/Button";
+import { TextField } from "@/ui/reusable/TextField";
 
 export const SearchForm = () => {
   return (
-    <form>
-      <TextField.Root
-        size={"3"}
+    <form className="flex flex-1 items-center justify-center gap-4">
+      <TextField
+        label=""
         id="search"
         name="search"
         defaultValue={""}
-        placeholder={"Znajdź produkt..."}
+        placeholder={"Find a product..."}
+        className="flex flex-9 items-center justify-center"
+      />
+      <Button
+        padding={2}
+        type="submit"
+        className="flex flex-1 items-center justify-center"
       >
-        <TextField.Slot />
-        <TextField.Slot>
-          <Button type="submit">{"Szukaj"}</Button>
-        </TextField.Slot>
-      </TextField.Root>
+        {"Search"}
+      </Button>
     </form>
   );
 };

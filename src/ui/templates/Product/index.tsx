@@ -1,10 +1,13 @@
 import { Main } from "@/ui/layout/Main";
-import { PageProps } from "../../../../.next/types/app/page";
 import { productApi } from "@/lib/api/product";
-import { Button, Card } from "@radix-ui/themes";
+import { Card } from "@radix-ui/themes";
 import Image from "next/image";
 import { List } from "@/ui/reusable/List";
 import Link from "next/link";
+import { Button } from "@/ui/reusable/Button";
+import { AddToCartButton } from "@/ui/reusable/AddToCartButton";
+import { PageProps } from "../../../../.next/types/app/page";
+import { Box } from "@/ui/reusable/Box";
 
 export default async function Product({ params }: PageProps) {
   const { id } = await params;
@@ -24,32 +27,43 @@ export default async function Product({ params }: PageProps) {
     <Main>
       <h1>{name}</h1>
       <div className={"flex flex-1 gap-4 flex-col md:flex-row"}>
-        <Card className={"flex-2"} size={"4"}>
+        <Box className={"flex-2 p-8"}>
           <p className={"text-2xl"}>{description}</p>
-        </Card>
+        </Box>
         <Image
-          className={"flex-1 h-[350px] object-cover rounded-sm"}
+          className={"flex-1 h-[350px] object-contain rounded-sm"}
           src={imageUrl}
           alt={name}
           width={350}
           height={350}
         />
       </div>
-      <Card size={"4"}>
-        <div className={"flex justify-between items-center"}>
+      <Box direction={"row"} className="p-8">
+        <div className={"flex flex-1 justify-between items-center"}>
           <p className={"text-2xl"}>
-            {amount > 0 ? `Cena: ${price} zł` : "Aktualnie niedostępny"}
+            {amount > 0 ? `Price: €${price}` : "Currently unavailable"}
           </p>
-          <Link href={`/product/${id}/buy`}>
-            <Button size={"4"} style={{ cursor: "pointer" }}>
-              {"Kup teraz"}
-            </Button>
-          </Link>
+          <div className={"flex gap-4"}>
+            <Link href={`/product/${product.id}/buy`}>
+              <Button padding={4}>{"Buy now"}</Button>
+            </Link>
+            <AddToCartButton
+              product={{
+                quantity: 1,
+                id: product.id,
+                imageUrl: product.imageUrl,
+                name: product.name,
+                price: product.price,
+              }}
+              variant="outlined"
+              padding={4}
+            />
+          </div>
         </div>
-      </Card>
+      </Box>
       {relatedProducts && (
         <div className="flex flex-col">
-          <h2>Podobne</h2>
+          <h2>Similar</h2>
           <List initialData={relatedProducts} limit={4} isFetchMoreDisabled />
         </div>
       )}
