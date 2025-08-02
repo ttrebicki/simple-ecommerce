@@ -7,6 +7,7 @@ export { metadata } from "@/lib/constants/seo";
 import { layoutConstraintsCn } from "@/lib/constants/ui";
 
 import "./globals.css";
+import React from "react";
 
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (

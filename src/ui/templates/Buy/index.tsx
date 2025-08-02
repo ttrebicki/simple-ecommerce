@@ -1,6 +1,6 @@
 "use client";
 
-import { stripe } from "@/lib/api/stripe";
+import { stripeClient } from "@/lib/api/stripe";
 import { interUrl } from "@/lib/constants/fonts";
 import { appearance } from "@/lib/constants/stripe";
 import { IStripeForm } from "@/lib/types/stripe";
@@ -61,7 +61,7 @@ export default function Buy({ products }: { products: ICartProduct[] }) {
         {clientSecret && !isSecretLoading && (
           <CheckoutProvider
             key={clientSecret}
-            stripe={stripe}
+            stripe={stripeClient}
             options={{
               elementsOptions: { appearance, fonts: [{ cssSrc: interUrl }] },
               fetchClientSecret: async () => clientSecret,

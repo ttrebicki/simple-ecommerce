@@ -1,3 +1,4 @@
+import { friendlyPrice } from "@/lib/helpers/friendlyPrice";
 import { IStripeForm } from "@/lib/types/stripe";
 import { Button } from "@/ui/reusable/Button";
 import { PaymentElement, useCheckout } from "@stripe/react-stripe-js";
@@ -15,6 +16,7 @@ export const Payment = ({
     updateBillingAddress,
     updateShippingAddress,
     total,
+    currency,
   } = useCheckout();
 
   useEffect(() => {
@@ -48,7 +50,8 @@ export const Payment = ({
   return (
     <>
       <h3 className="text-4xl">
-        {"Total: " + "€" + (total.total.minorUnitsAmount / 100).toFixed(2)}{" "}
+        {"Total: "}
+        {friendlyPrice({ unit_amount: total.total.minorUnitsAmount, currency })}
       </h3>
       <PaymentElement
         options={{

@@ -9,9 +9,10 @@ import { ICartState } from "@/lib/types/cart";
 import { IconButton } from "@/ui/reusable/IconButton";
 import { MdAdd, MdClose, MdRemove } from "react-icons/md";
 import { Box } from "@/ui/reusable/Box";
+import { friendlyPrice } from "@/lib/helpers/friendlyPrice";
 
 export const Item = ({ item, add, decrement, remove }: ICartItemProps) => {
-  const { imageUrl, name, quantity, price, id } = item;
+  const { images, name, quantity, prices, id } = item;
 
   return (
     <li className={"flex flex-1 h-[240px] relative w-full"}>
@@ -19,8 +20,8 @@ export const Item = ({ item, add, decrement, remove }: ICartItemProps) => {
         direction={"row"}
         className={"flex flex-1 justify-between items-center"}
         imageSlot={
-          imageUrl?.length && (
-            <Image fill src={imageUrl} alt={name} className={"object-cover"} />
+          images?.length && (
+            <Image fill src={images[0]} alt={name} className={"object-cover"} />
           )
         }
       >
@@ -40,9 +41,14 @@ export const Item = ({ item, add, decrement, remove }: ICartItemProps) => {
             <MdAdd />
           </IconButton>
         </div>
-        <span className="flex flex-1 justify-center">
-          €{(quantity * price).toFixed(2)}
-        </span>
+        {prices[0] && (
+          <span className="flex flex-1 justify-center">
+            {friendlyPrice({
+              ...prices[0],
+              unit_amount: (prices[0].unit_amount || 0) * quantity,
+            })}
+          </span>
+        )}
         <IconButton onClick={() => remove(id)}>
           <MdClose />
         </IconButton>
