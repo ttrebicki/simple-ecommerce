@@ -9,12 +9,16 @@ export async function GET(request: Request) {
 
   try {
     const res = await stripeServer.products.list({
+      active: true,
       limit: 12,
       starting_after,
     });
 
     const formattedProductsMap = res.data.map(async (p) => {
-      const prices = await stripeServer.prices.list({ product: p.id });
+      const prices = await stripeServer.prices.list({
+        active: true,
+        product: p.id,
+      });
 
       return {
         ...p,

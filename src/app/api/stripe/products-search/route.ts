@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   const page = url.searchParams.get("page") ?? undefined;
   const limit = parseInt(url.searchParams.get("limit") ?? "12", 10);
 
-  const query = `name~"${phraseParam}" OR description~"${phraseParam}"`;
+  const query = `name~"${phraseParam}" AND active:'true'`;
 
   try {
     const res = await stripeServer.products.search({
@@ -19,7 +19,12 @@ export async function GET(request: Request) {
     });
 
     const formattedProductsMap = res.data.map(async (p) => {
-      const prices = await stripeServer.prices.list({ product: p.id });
+      const prices = await stripeServer.prices.list({
+        active: true,
+        product: p.id,
+      });
+
+      console.log(res);
 
       return {
         ...p,
@@ -39,6 +44,7 @@ export async function GET(request: Request) {
       Stripe.Response<Stripe.ApiSearchResult<IFormattedStripeProduct>>
     >({ ...res, data: formattedProducts });
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error }, { status: 500 });
   }
 }
