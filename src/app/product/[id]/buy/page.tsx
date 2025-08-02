@@ -12,12 +12,12 @@ import { useRouter } from "next/navigation";
 
 export default function Page({ params }: PageProps) {
   const router = useRouter();
-  const [productId, setId] = useState<number>();
+  const [productId, setId] = useState<string>();
   const buyStore = useBuyStore();
   const productFromStore = buyStore.items.find((i) => i.id === productId);
   const { data: product, isLoading } = useSWR(
     [productId],
-    productApi.proxyGetProduct
+    productApi.getProduct
   );
 
   useEffect(() => {

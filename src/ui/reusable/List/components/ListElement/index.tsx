@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Box } from "@/ui/reusable/Box";
 
 export const ListElement = ({ item }: IListElementProps) => {
-  const { id, imageUrl, name, price } = item;
+  const { id, images, name, price } = item;
 
   return (
     <li className={"flex flex-col relative"}>
@@ -14,7 +14,7 @@ export const ListElement = ({ item }: IListElementProps) => {
           imageSlot={
             <div className="relative h-[200px] w-[100%]">
               <Image
-                src={imageUrl}
+                src={images[0]}
                 alt={name}
                 fill
                 className={"flex flex-1 object-cover"}

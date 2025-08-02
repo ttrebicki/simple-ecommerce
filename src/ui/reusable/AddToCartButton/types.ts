@@ -1,6 +1,6 @@
-import { ICartProduct } from "@/lib/types/cart";
+import { IFormattedStripeProduct } from "@/lib/types/stripe";
 import { IButtonProps } from "../Button/types";
 
 export interface IAddToCartButton extends IButtonProps {
-  product: ICartProduct;
+  product: IFormattedStripeProduct & { quantity: number };
 }

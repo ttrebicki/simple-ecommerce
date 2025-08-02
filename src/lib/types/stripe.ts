@@ -1,23 +1,13 @@
 import { StripeCheckoutContact } from "@stripe/stripe-js";
 import { ICartProduct } from "./cart";
-
-export interface ILineItem {
-  price_data: {
-    currency: string;
-    product_data: {
-      name: string;
-    };
-    unit_amount: number;
-  };
-  quantity: number;
-}
+import Stripe from "stripe";
 
 export interface IStripePaymentBody {
   items: ICartProduct[];
 }
 
-export interface IGetClientSecretResponse {
-  checkoutSessionClientSecret: string;
+export interface ISessionKeyResponse {
+  sessionKey: string;
 }
 
 export interface IStripeForm {
@@ -25,4 +15,13 @@ export interface IStripeForm {
   phoneNumber?: string;
   billingAddress?: StripeCheckoutContact;
   shippingAddress?: StripeCheckoutContact;
+}
+
+export interface IPrice {
+  currency: string;
+  unit_amount: number | null;
+}
+
+export interface IFormattedStripeProduct extends Stripe.Product {
+  prices: IPrice[];
 }

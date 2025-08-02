@@ -10,10 +10,11 @@ export const List = ({
   phrase = "",
   limit = 10,
   isFetchMoreDisabled,
+  hasMore,
 }: IListProps) => {
   const [data, setData] = useState(initialData);
   const [page, setPage] = useState(1);
-  const [isMore, setIsMore] = useState(!isFetchMoreDisabled);
+  const [isMore, setIsMore] = useState(!isFetchMoreDisabled && !!hasMore);
   const loader = useRef<HTMLDivElement>(null);
 
   const gridClasses = [
@@ -26,10 +27,12 @@ export const List = ({
     .join(" ");
 
   const handleFetchMore = useCallback(async () => {
-    const res = await productApi.proxySearchProducts(phrase, page, limit);
-    if (res?.length) {
-      setData((prev) => [...prev, ...res]);
-      if (!(res.length < limit)) setPage(page + 1);
+    const res = !!phrase.length
+      ? await productApi.searchProducts(phrase, page, limit)
+      : await productApi.getProductList();
+    if (res?.data.length) {
+      setData((prev) => [...prev, ...res.data]);
+      if (!res.has_more) setPage(page + 1);
       else setIsMore(false);
     }
   }, [phrase, page, limit]);
@@ -44,6 +47,11 @@ export const List = ({
     if (loader.current) obs.observe(loader.current);
     return () => obs.disconnect();
   }, [handleFetchMore, isMore]);
+
+  useEffect(() => {
+    setData([]);
+    setPage(1);
+  }, [!!phrase.length]);
 
   return (
     <div>

@@ -1,5 +1,5 @@
-import { IProduct } from "@/lib/types/product";
+import { IFormattedStripeProduct } from "@/lib/types/stripe";
 
 export interface IListElementProps {
-  item: IProduct;
+  item: IFormattedStripeProduct;
 }

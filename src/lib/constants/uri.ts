@@ -1,13 +1,11 @@
 export const uri = {
-  // PRODUCT
-  getProduct: (id: number) => `${process.env.API_URL}/products/${id}`,
-  searchProducts: (search: string, page: number, limit: number) =>
-    `${process.env.API_URL}/products/?search=${search}&page=${page}&limit=${limit}`,
+  getProduct: (id: number) => `/api/stripe/product/?id=${id}`,
+  getProductList: (starting_after?: string) =>
+    `/api/stripe/product-list/${
+      starting_after ? `?starting_after=${starting_after}` : ""
+    }`,
+  searchProducts: (search: string, limit: number, page?: number) =>
+    `/api/stripe/search/?search=${search}&limit=${limit}&page=${page}`,
 
-  proxyGetProduct: (id: number) => `/api/proxy-product/?id=${id}`,
-  proxySearchProducts: (search: string, page: number, limit: number) =>
-    `/api/proxy-products/?search=${search}&page=${page}&limit=${limit}`,
-
-  // STRIPE
-  getClientSecret: `/api/stripe/get-client-secret`,
-};
+  getSessionKey: `/api/stripe/session-key`,
+}; // TODO: handle all of this with qs

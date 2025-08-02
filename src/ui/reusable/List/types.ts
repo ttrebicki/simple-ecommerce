@@ -1,8 +1,9 @@
-import { IProduct } from "@/lib/types/product";
+import { IFormattedStripeProduct } from "@/lib/types/stripe";
 
 export interface IListProps {
-  initialData: IProduct[];
+  initialData: IFormattedStripeProduct[];
   phrase?: string;
   limit?: number;
   isFetchMoreDisabled?: boolean;
+  hasMore?: boolean;
 }

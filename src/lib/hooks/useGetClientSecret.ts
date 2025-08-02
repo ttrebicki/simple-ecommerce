@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchClientSecret } from "../api/stripe";
+import { fetchSessionKey } from "../api/stripe";
 import { ICartProduct } from "../types/cart";
 
 export const useGetClientSecret = (items: ICartProduct[]) => {
@@ -13,7 +13,7 @@ export const useGetClientSecret = (items: ICartProduct[]) => {
       setClientSecret(undefined);
       setSecretLoading(true);
       try {
-        const res = await fetchClientSecret({ items });
+        const res = await fetchSessionKey({ items });
 
         if (res && !canceled) setClientSecret(res);
       } catch (error) {
