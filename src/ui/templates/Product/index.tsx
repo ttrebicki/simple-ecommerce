@@ -18,12 +18,13 @@ export default async function Product({ params }: PageProps) {
   const { images, name, description, active, prices } = product;
   const splitName = name.split(" ");
   const relatedProducts = await productApi.searchProducts(splitName[0], 4);
+  const filteredProducts = relatedProducts?.data.filter((p) => p.id !== id);
 
   return (
     <Main>
       <h1>{name}</h1>
       <div className={"flex flex-1 gap-4 flex-col md:flex-row"}>
-        <Box className={"flex-2 p-4 lg:p-8"}>
+        <Box className={"flex-2 p-4 lg:p-8 lg:min-h-[300]"}>
           <p className={"lg:text-2xl"}>{description}</p>
         </Box>
         <div className={"flex flex-1 max-h-full min-h-[300] relative"}>
@@ -58,14 +59,10 @@ export default async function Product({ params }: PageProps) {
           </div>
         </div>
       </Box>
-      {relatedProducts && (
+      {!!filteredProducts?.length && (
         <div className="flex flex-col">
           <h2>Similar</h2>
-          <List
-            initialData={relatedProducts.data}
-            limit={4}
-            isFetchMoreDisabled
-          />
+          <List initialData={filteredProducts} limit={4} isFetchMoreDisabled />
         </div>
       )}
     </Main>
