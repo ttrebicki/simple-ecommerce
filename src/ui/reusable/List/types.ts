@@ -6,4 +6,5 @@ export interface IListProps {
   limit?: number;
   isFetchMoreDisabled?: boolean;
   hasMore?: boolean;
+  nextPage?: string | null;
 }

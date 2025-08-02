@@ -58,6 +58,7 @@ export const Payment = ({
           fields: {
             billingDetails: {
               address: { country: "never", postalCode: "never" },
+              email: "never",
             },
           },
         }}

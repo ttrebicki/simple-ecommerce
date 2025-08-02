@@ -11,7 +11,7 @@ export const uri = {
       { starting_after },
       { addQueryPrefix: true }
     )}`,
-  searchProducts: (search: string, limit: number, page?: number) =>
+  searchProducts: (search: string, limit: number, page?: string) =>
     `${
       process.env.NEXT_PUBLIC_APP_URL
     }/api/stripe/products-search/${qs.stringify(

@@ -49,7 +49,7 @@ export default function Buy({ products }: { products: ICartProduct[] }) {
               <TextField
                 disabled
                 defaultValue={"PL"}
-                label={"City"}
+                label={"Country"}
                 {...register("billingAddress.address.country")}
               />
             </div>

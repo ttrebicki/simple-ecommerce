@@ -8,24 +8,24 @@ export const ListElement = ({ item }: IListElementProps) => {
   const { id, images, name, prices } = item;
 
   return (
-    <li className={"flex flex-col relative"}>
-      <Link href={`/product/${id}`}>
+    <li className={"flex flex-col relative h-[300px]"}>
+      <Link href={`/product/${id}`} className={"h-full"}>
         <Box
           isHover
           imageSlot={
             !!images[0] && (
-              <div className="relative h-[200px] w-[100%]">
+              <div className="relative w-[100%]">
                 <Image
                   src={images[0]}
                   alt={name}
                   fill
-                  className={"flex flex-1 object-cover"}
+                  className={"flex object-cover"}
                 />
               </div>
             )
           }
         >
-          <div className={"flex flex-1 flex-col gap-2 p-2"}>
+          <div className={"flex flex-1 flex-col gap-2"}>
             <div>
               <span>{name}</span>
             </div>

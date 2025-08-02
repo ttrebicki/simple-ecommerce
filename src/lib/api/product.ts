@@ -33,7 +33,7 @@ export const productApi = {
   searchProducts: async (
     phrase: string,
     limit: number,
-    page?: number
+    page?: string
   ): Promise<
     Stripe.Response<Stripe.ApiSearchResult<IFormattedStripeProduct>> | undefined
   > => {

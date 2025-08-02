@@ -24,8 +24,6 @@ export async function GET(request: Request) {
         product: p.id,
       });
 
-      console.log(res);
-
       return {
         ...p,
         prices: prices.data.map(({ currency, unit_amount, id }) => ({
