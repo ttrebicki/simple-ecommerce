@@ -17,10 +17,7 @@ export default async function Product({ params }: PageProps) {
 
   const { images, name, description, active, prices } = product;
   const splitName = name.split(" ");
-  const relatedProducts = await productApi.searchProducts(
-    splitName[splitName.length - 1],
-    4
-  );
+  const relatedProducts = await productApi.searchProducts(splitName[0], 4);
 
   return (
     <Main>
