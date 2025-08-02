@@ -57,7 +57,6 @@ export default async function Product({ params }: PageProps) {
                 name: product.name,
                 price: product.price,
               }}
-              variant="outlined"
               padding={4}
             />
           </div>

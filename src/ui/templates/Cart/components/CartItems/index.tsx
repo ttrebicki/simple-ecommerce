@@ -75,14 +75,21 @@ export const Items = ({
 export const CartItems = () => {
   const { items, add, decrement, remove, clear } = useCartStore();
 
+  const backToMainPage = (
+    <Link href={"/"} className={"flex flex-col"}>
+      <Button variant="outlined">{"BACK TO MAINPAGE"}</Button>
+    </Link>
+  );
+
   return (
     <div className={"flex flex-col gap-4"}>
       {items.length ? (
         <Items items={items} add={add} decrement={decrement} remove={remove} />
       ) : (
         <>
-          <h2>{"Your cart looks empty."}</h2>
-          <p>{"Try adding some products."}</p>
+          <h2>{"Your cart looks empty..."}</h2>
+          <p>{"Try adding some products:"}</p>
+          {backToMainPage}
         </>
       )}
       {!!items.length && (
@@ -93,9 +100,7 @@ export const CartItems = () => {
           <Button variant="outlined" onClick={clear}>
             {"CLEAR"}
           </Button>
-          <Link href={"/"} className={"flex flex-col"}>
-            <Button variant="outlined">{"BACK TO MAINPAGE"}</Button>
-          </Link>
+          {backToMainPage}
         </div>
       )}
     </div>
