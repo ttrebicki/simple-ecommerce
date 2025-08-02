@@ -14,10 +14,14 @@ export async function GET(request: Request) {
     });
 
   try {
-    const { currency, unit_amount } = await stripeServer.prices.retrieve(id);
+    const {
+      currency,
+      unit_amount,
+      id: priceId,
+    } = await stripeServer.prices.retrieve(id);
 
     return NextResponse.json<{ price: IPrice }>({
-      price: { currency, unit_amount },
+      price: { currency, unit_amount, id: priceId },
     });
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });

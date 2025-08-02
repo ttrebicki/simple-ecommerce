@@ -9,6 +9,7 @@ import { ICartState } from "@/lib/types/cart";
 import { IconButton } from "@/ui/reusable/IconButton";
 import { MdAdd, MdClose, MdRemove } from "react-icons/md";
 import { Box } from "@/ui/reusable/Box";
+import { friendlyPrice } from "@/lib/helpers/friendlyPrice";
 
 export const Item = ({ item, add, decrement, remove }: ICartItemProps) => {
   const { images, name, quantity, prices, id } = item;
@@ -40,10 +41,14 @@ export const Item = ({ item, add, decrement, remove }: ICartItemProps) => {
             <MdAdd />
           </IconButton>
         </div>
-        <span className="flex flex-1 justify-center">
-          {prices[0].currency}
-          {((quantity * (prices[0].unit_amount || 0)) / 100).toFixed(2)}
-        </span>
+        {prices[0] && (
+          <span className="flex flex-1 justify-center">
+            {friendlyPrice({
+              ...prices[0],
+              unit_amount: (prices[0].unit_amount || 0) * quantity,
+            })}
+          </span>
+        )}
         <IconButton onClick={() => remove(id)}>
           <MdClose />
         </IconButton>

@@ -18,9 +18,10 @@ export async function GET(request: Request) {
 
       return {
         ...p,
-        prices: prices.data.map(({ currency, unit_amount }) => ({
+        prices: prices.data.map(({ currency, unit_amount, id }) => ({
           currency,
           unit_amount,
+          id,
         })),
       };
     });

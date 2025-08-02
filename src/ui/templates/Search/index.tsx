@@ -8,8 +8,8 @@ export default async function Search({ searchParams }: PageProps) {
   const { search } = await searchParams;
   const phrase = typeof search === "string" ? search : "";
   const products = !!phrase.length
-    ? await productApi.getProductList()
-    : await productApi.searchProducts(phrase, 12);
+    ? await productApi.searchProducts(phrase, 12)
+    : await productApi.getProductList();
 
   return (
     <Main>

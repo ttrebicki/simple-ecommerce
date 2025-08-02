@@ -2,6 +2,7 @@ import { Main } from "@/ui/layout/Main";
 import { PageProps } from "../../../.next/types/app/return/page";
 import { Box } from "@/ui/reusable/Box";
 import Stripe from "stripe";
+import { friendlyPrice } from "@/lib/helpers/friendlyPrice";
 
 export default async function Return({ searchParams }: PageProps) {
   const stripeServer = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -19,9 +20,15 @@ export default async function Return({ searchParams }: PageProps) {
           <li key={i.id}>
             <Box>
               <span>{i.description}</span>
-              <span>
-                {i.quantity} x €{((i.price?.unit_amount || 0) / 100).toFixed(2)}
-              </span>
+              {i.price && (
+                <span>
+                  {i.quantity} x{" "}
+                  {friendlyPrice({
+                    unit_amount: i.price.unit_amount,
+                    currency: i.currency,
+                  })}
+                </span>
+              )}
             </Box>
           </li>
         ))}
@@ -32,7 +39,12 @@ export default async function Return({ searchParams }: PageProps) {
         <h4>
           {typeof payment_intent === "string"
             ? payment_intent
-            : "€" + ((payment_intent?.amount || 0) / 100).toFixed(2)}
+            : !!payment_intent
+            ? friendlyPrice({
+                unit_amount: payment_intent?.amount,
+                currency: payment_intent?.currency,
+              })
+            : null}
         </h4>
       </div>
     </Main>

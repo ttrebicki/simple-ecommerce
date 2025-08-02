@@ -1,11 +1,27 @@
+import qs from "qs";
+
 export const uri = {
-  getProduct: (id: number) => `/api/stripe/product/?id=${id}`,
+  getProduct: (id: number) =>
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/stripe/product/${qs.stringify(
+      { id },
+      { addQueryPrefix: true }
+    )}`,
   getProductList: (starting_after?: string) =>
-    `/api/stripe/product-list/${
-      starting_after ? `?starting_after=${starting_after}` : ""
-    }`,
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/stripe/product-list/${qs.stringify(
+      { starting_after },
+      { addQueryPrefix: true }
+    )}`,
   searchProducts: (search: string, limit: number, page?: number) =>
-    `/api/stripe/search/?search=${search}&limit=${limit}&page=${page}`,
+    `${
+      process.env.NEXT_PUBLIC_APP_URL
+    }/api/stripe/products-search/${qs.stringify(
+      {
+        search,
+        limit,
+        page,
+      },
+      { addQueryPrefix: true }
+    )}`,
 
   getSessionKey: `/api/stripe/session-key`,
-}; // TODO: handle all of this with qs
+};

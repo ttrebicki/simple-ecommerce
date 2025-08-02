@@ -23,9 +23,10 @@ export async function GET(request: Request) {
 
     const formattedProduct: IFormattedStripeProduct = {
       ...product,
-      prices: prices.data.map(({ currency, unit_amount }) => ({
+      prices: prices.data.map(({ currency, unit_amount, id }) => ({
         currency,
         unit_amount,
+        id,
       })),
     };
 

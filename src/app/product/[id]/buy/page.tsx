@@ -16,7 +16,7 @@ export default function Page({ params }: PageProps) {
   const buyStore = useBuyStore();
   const productFromStore = buyStore.items.find((i) => i.id === productId);
   const { data: product, isLoading } = useSWR(
-    [productId],
+    productId || null,
     productApi.getProduct
   );
 

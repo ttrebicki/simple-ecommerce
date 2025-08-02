@@ -7,6 +7,7 @@ import { Button } from "@/ui/reusable/Button";
 import { AddToCartButton } from "@/ui/reusable/AddToCartButton";
 import { PageProps } from "../../../../.next/types/app/page";
 import { Box } from "@/ui/reusable/Box";
+import { friendlyPrice } from "@/lib/helpers/friendlyPrice";
 
 export default async function Product({ params }: PageProps) {
   const { id } = await params;
@@ -18,7 +19,6 @@ export default async function Product({ params }: PageProps) {
   const splitName = name.split(" ");
   const relatedProducts = await productApi.searchProducts(
     splitName[splitName.length - 1],
-    1,
     4
   );
 
@@ -41,8 +41,8 @@ export default async function Product({ params }: PageProps) {
       <Box direction={"row"} className="p-4 lg:p-8">
         <div className={"flex flex-1 justify-between items-center"}>
           <p className={"lg:text-2xl"}>
-            {active
-              ? `Price: ${prices[0].currency} ${prices[0].unit_amount}`
+            {active && prices[0]
+              ? `Price: ${friendlyPrice(prices[0])}`
               : "Currently unavailable"}
           </p>
           <div className={"flex flex-col lg:flex-row gap-2 lg:gap-4"}>

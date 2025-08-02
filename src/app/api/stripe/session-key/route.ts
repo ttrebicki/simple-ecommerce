@@ -1,5 +1,5 @@
 import { mapCartToLineItems } from "@/lib/api/stripe";
-import { IStripePaymentBody } from "@/lib/types/stripe";
+import { ISessionKeyResponse, IStripePaymentBody } from "@/lib/types/stripe";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -24,8 +24,8 @@ export async function POST(req: Request) {
       return_url: `${process.env.NEXT_PUBLIC_APP_URL}/return?session_id={CHECKOUT_SESSION_ID}`,
     });
 
-    return NextResponse.json({
-      checkoutSessionClientSecret: session.client_secret,
+    return NextResponse.json<ISessionKeyResponse>({
+      sessionKey: session.client_secret,
     });
   } catch (error: unknown) {
     return NextResponse.json(

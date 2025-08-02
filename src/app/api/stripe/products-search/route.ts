@@ -5,7 +5,7 @@ import Stripe from "stripe";
 export async function GET(request: Request) {
   const stripeServer = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const url = new URL(request.url);
-  const phraseParam = url.searchParams.get("phrase") ?? "";
+  const phraseParam = url.searchParams.get("search") ?? "";
   const page = url.searchParams.get("page") ?? undefined;
   const limit = parseInt(url.searchParams.get("limit") ?? "12", 10);
 
@@ -23,9 +23,10 @@ export async function GET(request: Request) {
 
       return {
         ...p,
-        prices: prices.data.map(({ currency, unit_amount }) => ({
+        prices: prices.data.map(({ currency, unit_amount, id }) => ({
           currency,
           unit_amount,
+          id,
         })),
       };
     });

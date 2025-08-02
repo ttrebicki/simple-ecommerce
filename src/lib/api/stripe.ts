@@ -22,14 +22,7 @@ export const mapCartToLineItems = (
   items: ICartProduct[]
 ): Stripe.Checkout.SessionCreateParams.LineItem[] => {
   return items.map((item) => ({
-    price_data: {
-      currency: "eur",
-      product_data: {
-        name: item.name,
-        images: [item.imageUrl],
-      },
-      unit_amount: Math.round(item.price * 100),
-    },
+    price: item.prices[0].id,
     quantity: item.quantity,
-  }));
+  })); // TODO: spr czy przekazywac zarowno id ceny jak i wartosc, pewnie mozna i to i to
 };

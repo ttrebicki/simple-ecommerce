@@ -48,10 +48,10 @@ export const List = ({
     return () => obs.disconnect();
   }, [handleFetchMore, isMore]);
 
-  useEffect(() => {
-    setData([]);
-    setPage(1);
-  }, [!!phrase.length]);
+  // useEffect(() => {
+  //   setData([]);
+  //   setPage(1);
+  // }, [!!phrase.length]);
 
   return (
     <div>

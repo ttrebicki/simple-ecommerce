@@ -7,7 +7,7 @@ export interface IStripePaymentBody {
 }
 
 export interface ISessionKeyResponse {
-  sessionKey: string;
+  sessionKey: string | null;
 }
 
 export interface IStripeForm {
@@ -20,6 +20,7 @@ export interface IStripeForm {
 export interface IPrice {
   currency: string;
   unit_amount: number | null;
+  id: string;
 }
 
 export interface IFormattedStripeProduct extends Stripe.Product {
