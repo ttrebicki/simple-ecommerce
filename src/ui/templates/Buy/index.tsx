@@ -25,34 +25,34 @@ export default function Buy({ products }: { products: ICartProduct[] }) {
     <form className="flex flex-1 flex-col gap-8">
       <Box>
         <div className="flex flex-1 flex-col md:flex-row gap-6">
-          <div className="flex flex-1  flex-col gap-1">
-            <TextField label={"Email"} {...register("email")} />
-            <TextField
-              label={"Full name"}
-              {...register("billingAddress.name")}
-            />
-            <TextField
-              label={"Address"}
-              {...register("billingAddress.address.line1")}
-            />
-            <TextField
-              label={"Address (line 2)"}
-              {...register("billingAddress.address.line2")}
-            />
-            <TextField
-              label={"City"}
-              {...register("billingAddress.address.city")}
-            />
-            <TextField
-              label={"Postal code"}
-              {...register("billingAddress.address.postal_code")}
-            />
-            <TextField
-              disabled
-              defaultValue={"PL"}
-              label={"City"}
-              {...register("billingAddress.address.country")}
-            />
+          <div className="flex flex-1 lg:flex-row gap-1 lg:gap-8">
+            <div className="flex flex-1 flex-col gap-1">
+              <TextField label={"Email"} {...register("email")} />
+              <TextField
+                label={"Full name"}
+                {...register("billingAddress.name")}
+              />
+              <TextField
+                label={"Address"}
+                {...register("billingAddress.address.line1")}
+              />
+            </div>
+            <div className="flex flex-1 flex-col gap-1">
+              <TextField
+                label={"City"}
+                {...register("billingAddress.address.city")}
+              />
+              <TextField
+                label={"Postal code"}
+                {...register("billingAddress.address.postal_code")}
+              />
+              <TextField
+                disabled
+                defaultValue={"PL"}
+                label={"City"}
+                {...register("billingAddress.address.country")}
+              />
+            </div>
           </div>
         </div>
       </Box>
