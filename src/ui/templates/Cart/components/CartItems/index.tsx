@@ -15,13 +15,20 @@ export const Item = ({ item, add, decrement, remove }: ICartItemProps) => {
   const { images, name, quantity, prices, id } = item;
 
   return (
-    <li className={"flex flex-1 h-[240px] relative w-full"}>
+    <li className={"flex flex-1 relative w-full"}>
       <Box
         direction={"row"}
-        className={"flex flex-1 justify-between items-center"}
+        className={"justify-between items-center"}
         imageSlot={
           images?.length && (
-            <Image fill src={images[0]} alt={name} className={"object-cover"} />
+            <div className={"relative w-full h-[80px]"}>
+              <Image
+                fill
+                src={images[0]}
+                alt={name}
+                className={"object-cover"}
+              />
+            </div>
           )
         }
       >

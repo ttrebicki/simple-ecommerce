@@ -8,34 +8,56 @@ import Loader from "../Loader";
 export const List = ({
   initialData,
   phrase = "",
-  limit = 10,
+  limit = 12,
   isFetchMoreDisabled,
   hasMore,
+  nextPage,
 }: IListProps) => {
   const [data, setData] = useState(initialData);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(nextPage);
+  const [startingAfter, setStartingAfter] = useState<string | undefined>(
+    initialData.length ? initialData[initialData.length - 1].id : undefined
+  );
   const [isMore, setIsMore] = useState(!isFetchMoreDisabled && !!hasMore);
   const loader = useRef<HTMLDivElement>(null);
+  const isPhrase = !!phrase.length;
 
   const gridClasses = [
     "grid",
     "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
     `gap-y-4`,
     `gap-x-4`,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  ].join(" ");
 
   const handleFetchMore = useCallback(async () => {
-    const res = !!phrase.length
-      ? await productApi.searchProducts(phrase, page, limit)
-      : await productApi.getProductList();
-    if (res?.data.length) {
-      setData((prev) => [...prev, ...res.data]);
-      if (!res.has_more) setPage(page + 1);
-      else setIsMore(false);
+    if (isPhrase) {
+      setStartingAfter(undefined);
+      const res = await productApi.searchProducts(
+        phrase,
+        limit,
+        page || undefined
+      );
+
+      if (res?.data.length) {
+        setData((prev) => [...prev, ...res.data]);
+
+        if (res.has_more) setPage(res.next_page);
+        else setIsMore(false);
+      }
+    } else {
+      const res = await productApi.getProductList(startingAfter);
+
+      if (res?.data.length) {
+        setData((prev) => [...prev, ...res.data]);
+
+        if (res.has_more) setStartingAfter(res.data[res.data.length - 1].id);
+        else {
+          setIsMore(false);
+          setStartingAfter(undefined);
+        }
+      }
     }
-  }, [phrase, page, limit]);
+  }, [phrase, page, limit, startingAfter, isPhrase]);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -47,11 +69,6 @@ export const List = ({
     if (loader.current) obs.observe(loader.current);
     return () => obs.disconnect();
   }, [handleFetchMore, isMore]);
-
-  // useEffect(() => {
-  //   setData([]);
-  //   setPage(1);
-  // }, [!!phrase.length]);
 
   return (
     <div>
