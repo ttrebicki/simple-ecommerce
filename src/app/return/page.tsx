@@ -3,9 +3,8 @@ import Stripe from "stripe";
 import { PageProps } from "../../../.next/types/app/return/page";
 import { Box } from "@/ui/reusable/Box";
 
-export const stripeServer = new Stripe(process.env.STRIPE_SECRET_KEY!); // TODO: move
-
 export default async function Return({ searchParams }: PageProps) {
+  const stripeServer = new Stripe(process.env.STRIPE_SECRET_KEY!); // TODO: move
   const { session_id } = await searchParams;
   const { line_items, payment_intent } =
     await stripeServer.checkout.sessions.retrieve(session_id, {
