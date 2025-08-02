@@ -3,6 +3,7 @@ import { PageProps } from "../../../.next/types/app/return/page";
 import { Box } from "@/ui/reusable/Box";
 import Stripe from "stripe";
 import { friendlyPrice } from "@/lib/helpers/friendlyPrice";
+import { ResetCart } from "@/ui/templates/Cart/components/ResetCart";
 
 export default async function Return({ searchParams }: PageProps) {
   const stripeServer = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -18,7 +19,7 @@ export default async function Return({ searchParams }: PageProps) {
       <ul className={"flex flex-col gap-0.5"}>
         {line_items?.data.map((i) => (
           <li key={i.id}>
-            <Box>
+            <Box contentClassName="flex-row justify-between">
               <span>{i.description}</span>
               {i.price && (
                 <span>
@@ -34,7 +35,7 @@ export default async function Return({ searchParams }: PageProps) {
         ))}
       </ul>
 
-      <div>
+      <div className="flex flex-col justify-center items-end">
         <h3>{"Total:"}</h3>
         <h4>
           {typeof payment_intent === "string"
@@ -47,6 +48,7 @@ export default async function Return({ searchParams }: PageProps) {
             : null}
         </h4>
       </div>
+      <ResetCart />
     </Main>
   );
 }
