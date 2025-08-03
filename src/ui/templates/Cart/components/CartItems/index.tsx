@@ -35,7 +35,9 @@ export const Item = ({
   };
 
   return (
-    <li className={"flex flex-1 relative w-full"}>
+    <li
+      className={"flex flex-1 relative w-full text-xs sm:text-sm lg:text-base"}
+    >
       <Box
         direction={"row"}
         className={"justify-between items-center"}

@@ -24,5 +24,5 @@ export const mapCartToLineItems = (
   return items.map((item) => ({
     price: item.prices[0].id,
     quantity: item.quantity,
-  })); // TODO: spr czy przekazywac zarowno id ceny jak i wartosc, pewnie mozna i to i to
+  }));
 };
