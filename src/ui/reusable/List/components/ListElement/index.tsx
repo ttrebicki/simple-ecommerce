@@ -24,6 +24,7 @@ export const ListElement = ({ item }: IListElementProps) => {
               </div>
             )
           }
+          contentClassName={"bg-background"}
         >
           <div className={"flex flex-1 flex-col gap-2"}>
             <div>

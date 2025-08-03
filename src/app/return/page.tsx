@@ -4,6 +4,8 @@ import { Box } from "@/ui/reusable/Box";
 import Stripe from "stripe";
 import { friendlyPrice } from "@/lib/helpers/friendlyPrice";
 import { ResetCart } from "@/ui/templates/Cart/components/ResetCart";
+import Link from "next/link";
+import { Button } from "@/ui/reusable/Button";
 
 export default async function Return({ searchParams }: PageProps) {
   const stripeServer = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -48,6 +50,10 @@ export default async function Return({ searchParams }: PageProps) {
             : null}
         </h4>
       </div>
+
+      <Link href={"/"} className={"flex flex-col"}>
+        <Button variant="outlined">{"BACK TO MAINPAGE"}</Button>
+      </Link>
       <ResetCart />
     </Main>
   );

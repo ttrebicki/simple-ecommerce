@@ -11,10 +11,9 @@ export interface ISessionKeyResponse {
 }
 
 export interface IStripeForm {
-  email?: string;
-  phoneNumber?: string;
-  billingAddress?: StripeCheckoutContact;
-  shippingAddress?: StripeCheckoutContact;
+  email: string;
+  name: string;
+  billingAddress: StripeCheckoutContact;
 }
 
 export interface IPrice {

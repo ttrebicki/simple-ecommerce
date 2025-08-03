@@ -8,10 +8,9 @@ import Loader from "@/ui/reusable/Loader";
 import { Main } from "@/ui/layout/Main";
 import { PageProps } from "../../../../../.next/types/app/product/[id]/buy/page";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { toastError } from "@/lib/helpers/toastError";
 
 export default function Page({ params }: PageProps) {
-  const router = useRouter();
   const [productId, setId] = useState<string>();
   const buyStore = useBuyStore();
   const productFromStore = buyStore.items.find((i) => i.id === productId);
@@ -25,8 +24,9 @@ export default function Page({ params }: PageProps) {
       try {
         const { id } = await params;
         setId(id);
-      } catch (error: unknown) {
+      } catch (error) {
         console.error(error);
+        toastError(error);
       }
     })();
   }, [params]);
@@ -34,13 +34,6 @@ export default function Page({ params }: PageProps) {
   useEffect(() => {
     if (!productFromStore && product) buyStore.add({ ...product, quantity: 1 });
   }, [product]);
-
-  useEffect(() => {
-    if (productFromStore && productFromStore.quantity < 1) {
-      buyStore.remove(productFromStore.id);
-      router.push(`/product/${productId}`);
-    }
-  }, [productFromStore?.quantity]);
 
   return (
     <Main>
