@@ -11,9 +11,17 @@ export const fetcher = {
       toastError(error);
     }
   },
-  post: async (uri: string, body?: BodyInit) => {
+  post: async ({
+    uri,
+    body,
+    headers,
+  }: {
+    uri: string;
+    body?: BodyInit;
+    headers?: HeadersInit;
+  }) => {
     try {
-      const res = await fetch(uri, { method: "POST", body });
+      const res = await fetch(uri, { method: "POST", body, headers });
 
       return res.json();
     } catch (error) {
