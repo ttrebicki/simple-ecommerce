@@ -1,20 +1,26 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@/lib/validators/login";
 import { TextField } from "@/ui/reusable/TextField";
-import { toastError } from "@/lib/helpers/toastError";
+import { firebaseToastError } from "@/lib/helpers/toastError";
 import { Button } from "@/ui/reusable/Button";
 import { Box } from "@/ui/reusable/Box";
 import { app } from "@/lib/api/firebase_client";
 import { fetcher } from "@/lib/api/fetcher";
 import { uri } from "@/lib/constants/uri";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 export default function Login() {
   const auth = getAuth(app);
+  const [isRegister, toggleRegister] = useState(false);
 
   const router = useRouter();
   const { handleSubmit, register, watch } = useForm({
@@ -25,7 +31,7 @@ export default function Login() {
   const email = watch("email");
   const password = watch("password");
 
-  const onSubmit = handleSubmit(async () => {
+  const handleLogin = async () => {
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
       const token = await res.user.getIdToken();
@@ -43,13 +49,38 @@ export default function Login() {
           : "Logged in!"
       );
     } catch (error) {
-      toastError(error);
+      console.log({ error });
+      firebaseToastError(error);
     }
-  });
+  };
+
+  const handleRegister = async () => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const token = await res.user.getIdToken();
+
+      await fetcher.post({
+        uri: uri.getFirebaseSession,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+
+      router.replace("/");
+      toast.success(
+        res.user.displayName
+          ? `Logged in! Hello, ${res.user.displayName}!`
+          : "Logged in!"
+      );
+    } catch (error) {
+      firebaseToastError(error);
+    }
+  };
+
+  const onSubmit = handleSubmit(isRegister ? handleRegister : handleLogin);
 
   return (
     <Box>
-      <form onSubmit={onSubmit} className={"flex flex-col gap-8"}>
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
         <div>
           <TextField label={"Email"} {...register("email")} />
           <TextField
@@ -58,8 +89,20 @@ export default function Login() {
             {...register("password")}
           />
         </div>
-        <Button type="submit">{"Log In"}</Button>
+        <Button type="submit">{isRegister ? "Register" : "Log In"}</Button>
       </form>
+      <Button
+        onClick={() => {
+          toggleRegister((state) => !state);
+        }}
+        variant="outlined"
+        padding={1}
+        className={"mt-4 "}
+      >
+        {isRegister
+          ? "Return to login"
+          : "No account? Click here to register. 😎"}
+      </Button>
     </Box>
   );
 }
