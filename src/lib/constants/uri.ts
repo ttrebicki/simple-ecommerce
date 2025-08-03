@@ -23,5 +23,6 @@ export const uri = {
       { addQueryPrefix: true }
     )}`,
 
-  getSessionKey: `/api/stripe/session-key`,
+  getSessionKey: `${process.env.NEXT_PUBLIC_APP_URL}/api/stripe/session-key`,
+  getFirebaseSession: `${process.env.NEXT_PUBLIC_APP_URL}/api/firebase/session`,
 };

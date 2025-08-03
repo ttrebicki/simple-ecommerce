@@ -10,10 +10,10 @@ export const stripeClient = loadStripe(
 );
 
 export const fetchSessionKey = async ({ items }: { items: ICartProduct[] }) => {
-  const res: ISessionKeyResponse = await fetcher.post(
-    uri.getSessionKey,
-    JSON.stringify({ items })
-  );
+  const res: ISessionKeyResponse = await fetcher.post({
+    uri: uri.getSessionKey,
+    body: JSON.stringify({ items }),
+  });
 
   return res.sessionKey;
 };

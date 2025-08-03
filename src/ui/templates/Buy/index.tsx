@@ -13,19 +13,25 @@ import { useSessionKey } from "@/lib/hooks/useSessionKey";
 import { ICartProduct } from "@/lib/types/cart";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { buyValidator } from "@/lib/validators/buy";
+import { getAuth } from "firebase/auth";
+import { app } from "@/lib/api/firebase_client";
+import { useEffect } from "react";
 
 export default function Buy({ products }: { products: ICartProduct[] }) {
+  const { currentUser } = getAuth(app);
+
   const {
     watch,
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
     mode: "onChange",
     resolver: zodResolver(buyValidator),
     defaultValues: {
-      name: "",
-      email: "",
+      name: currentUser?.displayName || "",
+      email: currentUser?.email || "",
       billingAddress: {
         address: { country: "DK", city: "", postal_code: "", line1: "" },
       },
@@ -36,6 +42,16 @@ export default function Buy({ products }: { products: ICartProduct[] }) {
   const name = watch("name");
   const email = watch("email");
   const billingAddress = watch("billingAddress");
+
+  useEffect(() => {
+    if (currentUser?.email) {
+      setValue("email", currentUser.email);
+    }
+
+    if (currentUser?.displayName) {
+      setValue("name", currentUser.displayName);
+    }
+  }, [currentUser]);
 
   return (
     <form className="flex flex-1 flex-col gap-8">
