@@ -2,6 +2,7 @@ import Stripe from "stripe";
 import { uri } from "../constants/uri";
 import { fetcher } from "./fetcher";
 import { IFormattedStripeProduct } from "../types/stripe";
+import { toastError } from "../helpers/toastError";
 
 export const productApi = {
   getProduct: async (
@@ -11,8 +12,9 @@ export const productApi = {
       const res = await fetcher.get(uri.getProduct(id));
 
       return res;
-    } catch (error: unknown) {
-      console.error("api.product.getProduct", error); // TODO: add some nice error handling like Toast display
+    } catch (error) {
+      console.error(error);
+      toastError(error);
     }
   },
 
@@ -25,8 +27,9 @@ export const productApi = {
       const res = await fetcher.get(uri.getProductList(starting_after));
 
       return res;
-    } catch (error: unknown) {
-      console.error("api.product.getProductList", error); // TODO: add some nice error handling like Toast display
+    } catch (error) {
+      console.error(error);
+      toastError(error);
     }
   },
 
@@ -41,8 +44,9 @@ export const productApi = {
       const res = await fetcher.get(uri.searchProducts(phrase, limit, page));
 
       return res;
-    } catch (error: unknown) {
-      console.error("api.product.searchProducts", error); // TODO: add some nice error handling like Toast display
+    } catch (error) {
+      console.error(error);
+      toastError(error);
     }
   },
 };

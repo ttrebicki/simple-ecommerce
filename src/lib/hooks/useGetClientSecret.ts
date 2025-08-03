@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchSessionKey } from "../api/stripe";
 import { ICartProduct } from "../types/cart";
+import { toastError } from "../helpers/toastError";
 
 export const useGetClientSecret = (items: ICartProduct[]) => {
   const [clientSecret, setClientSecret] = useState<string>();
@@ -17,7 +18,8 @@ export const useGetClientSecret = (items: ICartProduct[]) => {
 
         if (res && !canceled) setClientSecret(res);
       } catch (error) {
-        console.error("useGetClientSecret", error);
+        console.error(error);
+        toastError(error);
       } finally {
         setSecretLoading(false);
       }

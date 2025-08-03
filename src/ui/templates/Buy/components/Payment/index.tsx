@@ -1,14 +1,16 @@
 import { friendlyPrice } from "@/lib/helpers/friendlyPrice";
+import { toastError } from "@/lib/helpers/toastError";
 import { IStripeForm } from "@/lib/types/stripe";
 import { Button } from "@/ui/reusable/Button";
 import { PaymentElement, useCheckout } from "@stripe/react-stripe-js";
-import { FormEventHandler, useEffect } from "react";
+import { FormEvent, useEffect } from "react";
+import { UseFormHandleSubmit } from "react-hook-form";
 
 export const Payment = ({
   email,
   billingAddress,
-  shippingAddress,
-}: IStripeForm) => {
+  handleSubmit,
+}: IStripeForm & { handleSubmit: UseFormHandleSubmit<IStripeForm> }) => {
   const {
     confirm,
     canConfirm,
@@ -25,25 +27,26 @@ export const Payment = ({
 
   useEffect(() => {
     if (billingAddress) updateBillingAddress(billingAddress);
-    if (shippingAddress) updateShippingAddress(shippingAddress);
-  }, [
-    billingAddress,
-    shippingAddress,
-    updateBillingAddress,
-    updateShippingAddress,
-  ]);
+  }, [billingAddress, updateBillingAddress, updateShippingAddress]);
 
-  const onSubmit: FormEventHandler<HTMLButtonElement> = async (event) => {
+  const onSubmit = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     try {
+      if (!canConfirm) {
+        console.error("Validation error");
+        toastError("Validation error");
+      }
+
       const res = await confirm();
 
       if (res.type === "error") {
         console.error(res.error);
+        toastError(res.error);
       }
     } catch (error) {
       console.error(error);
+      toastError(error);
     }
   };
 
@@ -57,14 +60,25 @@ export const Payment = ({
         options={{
           fields: {
             billingDetails: {
-              address: { country: "never", postalCode: "never" },
+              address: {
+                line1: "never",
+                city: "never",
+                postalCode: "never",
+                country: "never",
+              },
               email: "never",
+              name: "never",
             },
           },
         }}
       />
       <Button
-        onClick={onSubmit}
+        onClick={(e) => {
+          e.preventDefault();
+          handleSubmit(async () => {
+            await onSubmit(e);
+          })();
+        }}
         disabled={!canConfirm}
         type="submit"
         className="flex-1"

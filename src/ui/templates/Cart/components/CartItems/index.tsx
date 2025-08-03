@@ -10,9 +10,29 @@ import { IconButton } from "@/ui/reusable/IconButton";
 import { MdAdd, MdClose, MdRemove } from "react-icons/md";
 import { Box } from "@/ui/reusable/Box";
 import { friendlyPrice } from "@/lib/helpers/friendlyPrice";
+import toast from "react-hot-toast";
 
-export const Item = ({ item, add, decrement, remove }: ICartItemProps) => {
+export const Item = ({
+  item,
+  add,
+  decrement,
+  remove,
+  isCart,
+}: ICartItemProps) => {
   const { images, name, quantity, prices, id } = item;
+  const removedMsg = `${name} removed from cart.`;
+
+  const handleAdd = () => {
+    add({ ...item, quantity: 1 });
+  };
+  const handleDecrement = () => {
+    decrement(id);
+    if (item.quantity === 1 && isCart) toast.success(removedMsg);
+  };
+  const handleRemove = () => {
+    remove(id);
+    toast.success(removedMsg);
+  };
 
   return (
     <li className={"flex flex-1 relative w-full"}>
@@ -40,11 +60,14 @@ export const Item = ({ item, add, decrement, remove }: ICartItemProps) => {
         <div
           className={"flex flex-1 gap-1 lg:gap-4 items-center justify-center"}
         >
-          <IconButton onClick={() => decrement(id)}>
+          <IconButton
+            disabled={!isCart ? quantity === 1 : undefined}
+            onClick={handleDecrement}
+          >
             <MdRemove />
           </IconButton>
           <span>{quantity}</span>
-          <IconButton onClick={() => add({ ...item, quantity: 1 })}>
+          <IconButton onClick={handleAdd}>
             <MdAdd />
           </IconButton>
         </div>
@@ -56,9 +79,11 @@ export const Item = ({ item, add, decrement, remove }: ICartItemProps) => {
             })}
           </span>
         )}
-        <IconButton onClick={() => remove(id)}>
-          <MdClose />
-        </IconButton>
+        {isCart && (
+          <IconButton onClick={handleRemove}>
+            <MdClose />
+          </IconButton>
+        )}
       </Box>
     </li>
   );
@@ -79,6 +104,7 @@ export const Items = ({
           add={add}
           decrement={decrement}
           remove={remove}
+          isCart
         />
       ))}
     </ul>

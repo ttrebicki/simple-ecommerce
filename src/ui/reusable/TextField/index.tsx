@@ -1,4 +1,3 @@
-// components/TextField.tsx
 "use client";
 
 import React, { forwardRef } from "react";
@@ -68,7 +67,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           <p
             id={`${inputId}-error`}
             role="alert"
-            className="text-sm text-red-600"
+            className="text-[10px] text-red-600"
           >
             {error}
           </p>

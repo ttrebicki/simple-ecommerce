@@ -8,6 +8,7 @@ import { layoutConstraintsCn } from "@/lib/constants/ui";
 
 import "./globals.css";
 import React from "react";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
           {children}
         </main>
         <Footer />
+        <Toaster position="top-center" toastOptions={{ duration: 10000 }} />
       </body>
     </html>
   );

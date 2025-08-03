@@ -3,7 +3,6 @@
 import { stripeClient } from "@/lib/api/stripe";
 import { interUrl } from "@/lib/constants/fonts";
 import { appearance } from "@/lib/constants/stripe";
-import { IStripeForm } from "@/lib/types/stripe";
 import { Box } from "@/ui/reusable/Box";
 import Loader from "@/ui/reusable/Loader";
 import { TextField } from "@/ui/reusable/TextField";
@@ -12,14 +11,31 @@ import { useForm } from "react-hook-form";
 import { Payment } from "./components/Payment";
 import { useGetClientSecret } from "@/lib/hooks/useGetClientSecret";
 import { ICartProduct } from "@/lib/types/cart";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { buyValidator } from "@/lib/validators/buy";
 
 export default function Buy({ products }: { products: ICartProduct[] }) {
-  const { watch, register } = useForm<IStripeForm>();
+  const {
+    watch,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    resolver: zodResolver(buyValidator),
+    defaultValues: {
+      name: "",
+      email: "",
+      billingAddress: {
+        address: { country: "DK", city: "", postal_code: "", line1: "" },
+      },
+    },
+  });
   const { clientSecret, isSecretLoading } = useGetClientSecret(products);
 
+  const name = watch("name");
   const email = watch("email");
   const billingAddress = watch("billingAddress");
-  const shippingAddress = watch("shippingAddress");
 
   return (
     <form className="flex flex-1 flex-col gap-8">
@@ -27,28 +43,43 @@ export default function Buy({ products }: { products: ICartProduct[] }) {
         <div className="flex flex-1 flex-col md:flex-row gap-6">
           <div className="flex flex-1 lg:flex-row gap-1 lg:gap-8">
             <div className="flex flex-1 flex-col gap-1">
-              <TextField label={"Email"} {...register("email")} />
+              <TextField
+                defaultValue={""}
+                label={"Email"}
+                error={errors.email?.message}
+                required
+                {...register("email")}
+              />
               <TextField
                 label={"Full name"}
-                {...register("billingAddress.name")}
+                error={errors.name?.message}
+                required
+                {...register("name")}
               />
               <TextField
                 label={"Address"}
+                error={errors.billingAddress?.address?.line1?.message}
+                required
                 {...register("billingAddress.address.line1")}
               />
             </div>
             <div className="flex flex-1 flex-col gap-1">
               <TextField
                 label={"City"}
+                error={errors.billingAddress?.address?.city?.message}
+                required
                 {...register("billingAddress.address.city")}
               />
               <TextField
                 label={"Postal code"}
+                error={errors.billingAddress?.address?.postal_code?.message}
+                required
                 {...register("billingAddress.address.postal_code")}
               />
               <TextField
                 disabled
-                defaultValue={"PL"}
+                required
+                error={errors.billingAddress?.address?.country?.message}
                 label={"Country"}
                 {...register("billingAddress.address.country")}
               />
@@ -69,8 +100,9 @@ export default function Buy({ products }: { products: ICartProduct[] }) {
           >
             <Payment
               email={email}
+              name={name}
               billingAddress={billingAddress}
-              shippingAddress={shippingAddress}
+              handleSubmit={handleSubmit}
             />
           </CheckoutProvider>
         )}
