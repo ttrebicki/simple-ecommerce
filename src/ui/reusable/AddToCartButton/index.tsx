@@ -28,7 +28,7 @@ export const AddToCartButton = ({ product, ...props }: IAddToCartButton) => {
       onClick={handleAddToCart}
       {...props}
     >
-      {isInCart ? "Added to cart!" : "Add to cart"}
+      {isInCart ? "Item in cart!" : "Add to cart"}
     </Button>
   );
 };

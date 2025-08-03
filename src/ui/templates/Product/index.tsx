@@ -37,13 +37,17 @@ export default async function Product({ params }: PageProps) {
         </div>
       </div>
       <Box direction={"row"} className="p-4 lg:p-8">
-        <div className={"flex flex-1 justify-between items-center"}>
+        <div className={"flex flex-1 justify-between items-center gap-8"}>
           <p className={"lg:text-2xl"}>
             {active && prices[0]
               ? `Price: ${friendlyPrice(prices[0])}`
               : "Currently unavailable"}
           </p>
-          <div className={"flex flex-col lg:flex-row gap-2 lg:gap-4"}>
+          <div
+            className={
+              "flex flex-1 lg:flex-initial flex-col lg:flex-row gap-2 lg:gap-4"
+            }
+          >
             <Link href={`/product/${product.id}/buy`}>
               <Button className="w-full lg:w-auto" padding={4}>
                 {"Buy now"}
