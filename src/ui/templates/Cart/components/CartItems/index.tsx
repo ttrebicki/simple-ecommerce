@@ -128,8 +128,8 @@ export const CartItems = () => {
         <Items items={items} add={add} decrement={decrement} remove={remove} />
       ) : (
         <>
-          <h2>{"Your cart looks empty..."}</h2>
-          <p>{"Try adding some products:"}</p>
+          <h2>{"Your cart looks empty... 🙄"}</h2>
+          <p>{"Try adding some products: 🤓"}</p>
           {backToMainPage}
         </>
       )}

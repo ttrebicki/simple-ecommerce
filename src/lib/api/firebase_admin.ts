@@ -1,6 +1,5 @@
 import admin from "firebase-admin";
 import { cookies } from "next/headers";
-import { toastError } from "../helpers/toastError";
 
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -26,7 +25,7 @@ export const getUserFromServerCookie = async () => {
 
       return initialUser;
     } catch (error) {
-      toastError(error);
+      console.error(error);
     }
   }
 };
