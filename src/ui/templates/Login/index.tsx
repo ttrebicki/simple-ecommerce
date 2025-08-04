@@ -49,7 +49,6 @@ export default function Login() {
           : "Logged in!"
       );
     } catch (error) {
-      console.log({ error });
       firebaseToastError(error);
     }
   };
