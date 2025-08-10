@@ -17,13 +17,20 @@ import { fetcher } from "@/lib/api/fetcher";
 import { uri } from "@/lib/constants/uri";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import Loader from "@/ui/reusable/Loader";
 
 export default function Login() {
   const auth = getAuth(app);
   const [isRegister, toggleRegister] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const router = useRouter();
-  const { handleSubmit, register, watch } = useForm({
+  const {
+    handleSubmit,
+    register,
+    watch,
+    formState: { errors },
+  } = useForm({
     mode: "onChange",
     resolver: zodResolver(loginSchema),
     defaultValues: { email: "", password: "" },
@@ -33,6 +40,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
+      setLoading(true);
       const res = await signInWithEmailAndPassword(auth, email, password);
       const token = await res.user.getIdToken();
 
@@ -50,11 +58,14 @@ export default function Login() {
       );
     } catch (error) {
       firebaseToastError(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleRegister = async () => {
     try {
+      setLoading(true);
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const token = await res.user.getIdToken();
 
@@ -72,6 +83,8 @@ export default function Login() {
       );
     } catch (error) {
       firebaseToastError(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -81,14 +94,21 @@ export default function Login() {
     <Box>
       <form onSubmit={onSubmit} className="flex flex-col gap-4">
         <div>
-          <TextField label={"Email"} {...register("email")} />
           <TextField
+            error={errors.email?.message}
+            label={"Email"}
+            {...register("email")}
+          />
+          <TextField
+            error={errors.password?.message}
             type="password"
             label={"Password"}
             {...register("password")}
           />
         </div>
-        <Button type="submit">{isRegister ? "Register" : "Log In"}</Button>
+        <Button disabled={isLoading} type="submit">
+          {isLoading ? <Loader /> : isRegister ? "Register" : "Log In"}
+        </Button>
       </form>
       <Button
         onClick={() => {

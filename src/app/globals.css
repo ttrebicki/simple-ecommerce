@@ -28,9 +28,6 @@
 
 html {
   font-size: 16px;
-}
-
-* {
   color: var(--text);
   font-family: "Inter", Arial, Helvetica, sans-serif;
 }
