@@ -14,7 +14,7 @@ export default async function RootLayout({
   children,
 }: Readonly<PropsWithChildren>) {
   return (
-    <html lang="pl">
+    <html lang="en">
       <body
         className={`${inter.className} antialiased min-h-screen flex flex-col justify-between bg-background`}
       >
