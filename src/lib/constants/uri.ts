@@ -1,15 +1,15 @@
-import qs from "qs";
+import qs from 'qs';
 
 export const uri = {
   getProduct: (id: number) =>
     `${process.env.NEXT_PUBLIC_APP_URL}/api/stripe/product/${qs.stringify(
       { id },
-      { addQueryPrefix: true }
+      { addQueryPrefix: true },
     )}`,
   getProductList: (starting_after?: string) =>
     `${process.env.NEXT_PUBLIC_APP_URL}/api/stripe/product-list/${qs.stringify(
       { starting_after },
-      { addQueryPrefix: true }
+      { addQueryPrefix: true },
     )}`,
   searchProducts: (search: string, limit: number, page?: string) =>
     `${
@@ -20,7 +20,7 @@ export const uri = {
         limit,
         page,
       },
-      { addQueryPrefix: true }
+      { addQueryPrefix: true },
     )}`,
 
   getSessionKey: `${process.env.NEXT_PUBLIC_APP_URL}/api/stripe/session-key`,

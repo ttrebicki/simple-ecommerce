@@ -1,10 +1,10 @@
-import { friendlyPrice } from "@/lib/helpers/friendlyPrice";
-import { toastError } from "@/lib/helpers/toastError";
-import { IStripeForm } from "@/lib/types/stripe";
-import { Button } from "@/ui/reusable/Button";
-import { PaymentElement, useCheckout } from "@stripe/react-stripe-js";
-import { FormEvent, useEffect } from "react";
-import { UseFormHandleSubmit } from "react-hook-form";
+import { friendlyPrice } from '@/lib/helpers/friendlyPrice';
+import { toastError } from '@/lib/helpers/toastError';
+import { IStripeForm } from '@/lib/types/stripe';
+import { Button } from '@/ui/reusable/Button';
+import { PaymentElement, useCheckout } from '@stripe/react-stripe-js';
+import { FormEvent, useEffect } from 'react';
+import { UseFormHandleSubmit } from 'react-hook-form';
 
 export const Payment = ({
   email,
@@ -34,13 +34,15 @@ export const Payment = ({
 
     try {
       if (!canConfirm) {
-        console.error("Validation error");
-        toastError("Validation error");
+        console.error('Validation error');
+        toastError('Validation error');
       }
 
       const res = await confirm();
 
-      if (res.type === "error") {
+      console.log({ res });
+
+      if (res.type === 'error') {
         console.error(res.error);
         toastError(res.error);
       }
@@ -52,8 +54,8 @@ export const Payment = ({
 
   return (
     <>
-      <h3 className="text-4xl">
-        {"Total: "}
+      <h3 className='text-4xl'>
+        {'Total: '}
         {friendlyPrice({ unit_amount: total.total.minorUnitsAmount, currency })}
       </h3>
       <PaymentElement
@@ -61,13 +63,13 @@ export const Payment = ({
           fields: {
             billingDetails: {
               address: {
-                line1: "never",
-                city: "never",
-                postalCode: "never",
-                country: "never",
+                line1: 'never',
+                city: 'never',
+                postalCode: 'never',
+                country: 'never',
               },
-              email: "never",
-              name: "never",
+              email: 'never',
+              name: 'never',
             },
           },
         }}
@@ -80,10 +82,10 @@ export const Payment = ({
           })();
         }}
         disabled={!canConfirm}
-        type="submit"
-        className="flex-1"
+        type='submit'
+        className='flex-1'
       >
-        {"PROCEED TO PAYMENT"}
+        {'PROCEED TO PAYMENT'}
       </Button>
     </>
   );

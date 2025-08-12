@@ -1,5 +1,5 @@
-import Search from "@/ui/templates/Search";
-import { PageProps } from "../../.next/types/app/page";
+import Search from '@/ui/templates/Search';
+import { PageProps } from '../../.next/types/app/page';
 
 export const revalidate = 60;
 

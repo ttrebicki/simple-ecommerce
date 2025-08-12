@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
-import { fetchSessionKey } from "../api/stripe";
-import { ICartProduct } from "../types/cart";
-import { toastError } from "../helpers/toastError";
+import { useCallback, useEffect, useState } from 'react';
+import { fetchSessionKey } from '../../api/stripe';
+import { ICartProduct } from '../../types/cart';
+import { toastError } from '../../helpers/toastError';
 
-export const useSessionKey = (items: ICartProduct[]) => {
+export const useSessionKey = ({ items }: { items: ICartProduct[] }) => {
   const [sessionKey, setSessionKey] = useState<string>();
   const [isKeyLoading, setKeyLoading] = useState(false);
 

@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { ICartState } from "../types/cart";
+import { create } from 'zustand';
+import { ICartState } from '../../types/cart';
 
 export const useBuyStore = create<ICartState>()((set) => ({
   items: [],
@@ -12,7 +12,7 @@ export const useBuyStore = create<ICartState>()((set) => ({
           items: state.items.map((i) =>
             i.id === item.id
               ? { ...i, quantity: i.quantity + item.quantity }
-              : i
+              : i,
           ),
         };
 

@@ -1,13 +1,13 @@
-import Stripe from "stripe";
-import { uri } from "../constants/uri";
-import { fetcher } from "./fetcher";
-import { IFormattedStripeProduct } from "../types/stripe";
-import { toastError } from "../helpers/toastError";
+import Stripe from 'stripe';
+import { uri } from '../constants/uri';
+import { fetcher } from './fetcher';
+import { IFormattedStripeProduct } from '../types/stripe';
+import { toastError } from '../helpers/toastError';
 
 export const productApi = {
   getProduct: async (
-    id: number
-  ): Promise<IFormattedStripeProduct | undefined> => {
+    id: number,
+  ): Promise<{ product: IFormattedStripeProduct } | undefined> => {
     try {
       const res = await fetcher.get(uri.getProduct(id));
 
@@ -19,7 +19,7 @@ export const productApi = {
   },
 
   getProductList: async (
-    starting_after?: string
+    starting_after?: string,
   ): Promise<
     Stripe.Response<Stripe.ApiList<IFormattedStripeProduct>> | undefined
   > => {
@@ -36,7 +36,7 @@ export const productApi = {
   searchProducts: async (
     phrase: string,
     limit: number,
-    page?: string
+    page?: string,
   ): Promise<
     Stripe.Response<Stripe.ApiSearchResult<IFormattedStripeProduct>> | undefined
   > => {

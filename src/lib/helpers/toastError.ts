@@ -1,4 +1,4 @@
-import toast from "react-hot-toast";
+import toast from 'react-hot-toast';
 
 /**
  * Returns message of any error object with structure containing
@@ -9,22 +9,22 @@ import toast from "react-hot-toast";
  */
 
 const getErrorMessage = (error: unknown) =>
-  typeof error === "object" &&
+  typeof error === 'object' &&
   error &&
-  "message" in error &&
-  typeof error.message === "string"
+  'message' in error &&
+  typeof error.message === 'string'
     ? error.message
-    : "";
+    : '';
 
 const getFirebaseErrorMessage = (error: unknown) =>
-  typeof error === "object" &&
+  typeof error === 'object' &&
   !!error &&
-  "code" in error &&
-  typeof error.code === "string"
-    ? error.code === "auth/invalid-credential"
+  'code' in error &&
+  typeof error.code === 'string'
+    ? error.code === 'auth/invalid-credential'
       ? "Incorrect credentials or user doesn't exist. Please try again or register."
       : error.code
-    : "Unknown Firebase error.";
+    : 'Unknown Firebase error.';
 
 export const firebaseToastError = (error: unknown) =>
   toast.error(getFirebaseErrorMessage(error));

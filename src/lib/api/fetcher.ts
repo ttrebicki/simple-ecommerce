@@ -1,9 +1,9 @@
-import { toastError } from "../helpers/toastError";
+import { toastError } from '../helpers/toastError';
 
 export const fetcher = {
   get: async (uri: string) => {
     try {
-      const res = await fetch(uri, { method: "GET" });
+      const res = await fetch(uri, { method: 'GET' });
 
       return res.json();
     } catch (error) {
@@ -21,7 +21,7 @@ export const fetcher = {
     headers?: HeadersInit;
   }) => {
     try {
-      const res = await fetch(uri, { method: "POST", body, headers });
+      const res = await fetch(uri, { method: 'POST', body, headers });
 
       return res.json();
     } catch (error) {
@@ -31,7 +31,7 @@ export const fetcher = {
   },
   put: async (uri: string, body?: BodyInit) => {
     try {
-      const res = await fetch(uri, { method: "PUT", body });
+      const res = await fetch(uri, { method: 'PUT', body });
 
       return res.json();
     } catch (error) {
@@ -41,7 +41,7 @@ export const fetcher = {
   },
   delete: async (uri: string, body?: BodyInit) => {
     try {
-      const res = await fetch(uri, { method: "DELETE", body });
+      const res = await fetch(uri, { method: 'DELETE', body });
 
       return res.json();
     } catch (error) {

@@ -1,23 +1,23 @@
-"use client";
-import { useRouter } from "next/navigation";
+'use client';
+import { useRouter } from 'next/navigation';
 import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
-} from "firebase/auth";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema } from "@/lib/validators/login";
-import { TextField } from "@/ui/reusable/TextField";
-import { firebaseToastError } from "@/lib/helpers/toastError";
-import { Button } from "@/ui/reusable/Button";
-import { Box } from "@/ui/reusable/Box";
-import { app } from "@/lib/api/firebase_client";
-import { fetcher } from "@/lib/api/fetcher";
-import { uri } from "@/lib/constants/uri";
-import toast from "react-hot-toast";
-import { useState } from "react";
-import Loader from "@/ui/reusable/Loader";
+} from 'firebase/auth';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema } from '@/lib/validators/login';
+import { TextField } from '@/ui/reusable/TextField';
+import { firebaseToastError } from '@/lib/helpers/toastError';
+import { Button } from '@/ui/reusable/Button';
+import { Box } from '@/ui/reusable/Box';
+import { app } from '@/lib/api/firebase_client';
+import { fetcher } from '@/lib/api/fetcher';
+import { uri } from '@/lib/constants/uri';
+import toast from 'react-hot-toast';
+import { useState } from 'react';
+import Loader from '@/ui/reusable/Loader';
 
 export default function Login() {
   const auth = getAuth(app);
@@ -31,12 +31,12 @@ export default function Login() {
     watch,
     formState: { errors },
   } = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { email: '', password: '' },
   });
-  const email = watch("email");
-  const password = watch("password");
+  const email = watch('email');
+  const password = watch('password');
 
   const handleLogin = async () => {
     try {
@@ -46,15 +46,15 @@ export default function Login() {
 
       await fetcher.post({
         uri: uri.getFirebaseSession,
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token }),
       });
 
-      router.replace("/");
+      router.replace('/');
       toast.success(
         res.user.displayName
           ? `Logged in! Hello, ${res.user.displayName}!`
-          : "Logged in!"
+          : 'Logged in!',
       );
     } catch (error) {
       firebaseToastError(error);
@@ -71,15 +71,15 @@ export default function Login() {
 
       await fetcher.post({
         uri: uri.getFirebaseSession,
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token }),
       });
 
-      router.replace("/");
+      router.replace('/');
       toast.success(
         res.user.displayName
           ? `Logged in! Hello, ${res.user.displayName}!`
-          : "Logged in!"
+          : 'Logged in!',
       );
     } catch (error) {
       firebaseToastError(error);
@@ -92,35 +92,35 @@ export default function Login() {
 
   return (
     <Box>
-      <form onSubmit={onSubmit} className="flex flex-col gap-4">
+      <form onSubmit={onSubmit} className='flex flex-col gap-4'>
         <div>
           <TextField
             error={errors.email?.message}
-            label={"Email"}
-            {...register("email")}
+            label={'Email'}
+            {...register('email')}
           />
           <TextField
             error={errors.password?.message}
-            type="password"
-            label={"Password"}
-            {...register("password")}
+            type='password'
+            label={'Password'}
+            {...register('password')}
           />
         </div>
-        <Button disabled={isLoading} type="submit">
-          {isLoading ? <Loader /> : isRegister ? "Register" : "Log In"}
+        <Button disabled={isLoading} type='submit'>
+          {isLoading ? <Loader /> : isRegister ? 'Register' : 'Log In'}
         </Button>
       </form>
       <Button
         onClick={() => {
           toggleRegister((state) => !state);
         }}
-        variant="outlined"
+        variant='outlined'
         padding={1}
-        className={"mt-4 "}
+        className={'mt-4 '}
       >
         {isRegister
-          ? "Return to login"
-          : "No account? Click here to register. 😎"}
+          ? 'Return to login'
+          : 'No account? Click here to register. 😎'}
       </Button>
     </Box>
   );

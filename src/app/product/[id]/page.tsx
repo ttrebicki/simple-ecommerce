@@ -1,6 +1,6 @@
-import Product from "@/ui/templates/Product";
-import { PageProps } from "../../../../.next/types/app/page";
-import Stripe from "stripe";
+import Product from '@/ui/templates/Product';
+import { PageProps } from '../../../../.next/types/app/page';
+import Stripe from 'stripe';
 
 export const revalidate = 60;
 

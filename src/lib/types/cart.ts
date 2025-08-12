@@ -1,4 +1,4 @@
-import { IFormattedStripeProduct } from "./stripe";
+import { IFormattedStripeProduct } from './stripe';
 
 export interface ICartProduct extends IFormattedStripeProduct {
   quantity: number;

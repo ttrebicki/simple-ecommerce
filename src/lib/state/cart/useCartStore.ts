@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { create } from "zustand";
-import { ICartState } from "../types/cart";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { ICartState } from '../../types/cart';
+import { persist } from 'zustand/middleware';
 
 export const useCartStore = create<ICartState>()(
   persist(
@@ -17,7 +17,7 @@ export const useCartStore = create<ICartState>()(
               items: state.items.map((i) =>
                 i.id === item.id
                   ? { ...i, quantity: i.quantity + item.quantity }
-                  : i
+                  : i,
               ),
             };
 
@@ -31,7 +31,7 @@ export const useCartStore = create<ICartState>()(
             return {
               items: state.items
                 .map((i) =>
-                  i.id === id ? { ...i, quantity: i.quantity - 1 } : i
+                  i.id === id ? { ...i, quantity: i.quantity - 1 } : i,
                 )
                 .filter((i) => i.quantity > 0),
             };
@@ -44,7 +44,7 @@ export const useCartStore = create<ICartState>()(
       clear: () => set({ items: [] }),
     }),
     {
-      name: "cart",
-    }
-  )
+      name: 'cart',
+    },
+  ),
 );

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useCartStore } from "@/lib/hooks/useCartStore";
-import { Button } from "../Button";
-import { IAddToCartButton } from "./types";
-import toast from "react-hot-toast";
-import { toastError } from "@/lib/helpers/toastError";
+import { useCartStore } from '@/lib/state/cart/useCartStore';
+import { Button } from '../Button';
+import { IAddToCartButton } from './types';
+import toast from 'react-hot-toast';
+import { toastError } from '@/lib/helpers/toastError';
 
 export const AddToCartButton = ({ product, ...props }: IAddToCartButton) => {
   const { add, items } = useCartStore();
@@ -24,11 +24,11 @@ export const AddToCartButton = ({ product, ...props }: IAddToCartButton) => {
   return (
     <Button
       disabled={!!isInCart}
-      variant={"outlined"}
+      variant={'outlined'}
       onClick={handleAddToCart}
       {...props}
     >
-      {isInCart ? "Item in cart!" : "Add to cart"}
+      {isInCart ? 'Item in cart!' : 'Add to cart'}
     </Button>
   );
 };

@@ -1,11 +1,11 @@
-import { IFormattedStripeProduct } from "@/lib/types/stripe";
-import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import { IFormattedStripeProduct } from '@/lib/types/stripe';
+import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
 
 export async function GET(request: Request) {
   const stripeServer = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const url = new URL(request.url);
-  const starting_after = url.searchParams.get("starting_after") || undefined;
+  const starting_after = url.searchParams.get('starting_after') || undefined;
 
   try {
     const res = await stripeServer.products.list({
@@ -30,9 +30,8 @@ export async function GET(request: Request) {
       };
     });
 
-    const formattedProducts: IFormattedStripeProduct[] = await Promise.all(
-      formattedProductsMap
-    );
+    const formattedProducts: IFormattedStripeProduct[] =
+      await Promise.all(formattedProductsMap);
 
     return NextResponse.json<
       Stripe.Response<Stripe.ApiList<IFormattedStripeProduct>>

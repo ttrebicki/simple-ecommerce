@@ -1,13 +1,13 @@
-"use client";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ListElement } from "./components/ListElement";
-import { IListProps } from "./types";
-import { productApi } from "@/lib/api/product";
-import Loader from "../Loader";
+'use client';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ListElement } from './components/ListElement';
+import { IListProps } from './types';
+import { productApi } from '@/lib/api/product';
+import Loader from '../Loader';
 
 export const List = ({
   initialData,
-  phrase = "",
+  phrase = '',
   limit = 12,
   isFetchMoreDisabled,
   hasMore,
@@ -16,18 +16,18 @@ export const List = ({
   const [data, setData] = useState(initialData);
   const [page, setPage] = useState(nextPage);
   const [startingAfter, setStartingAfter] = useState<string | undefined>(
-    initialData.length ? initialData[initialData.length - 1].id : undefined
+    initialData.length ? initialData[initialData.length - 1].id : undefined,
   );
   const [isMore, setIsMore] = useState(!isFetchMoreDisabled && !!hasMore);
   const loader = useRef<HTMLDivElement>(null);
   const isPhrase = !!phrase.length;
 
   const gridClasses = [
-    "grid",
-    "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+    'grid',
+    'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
     `gap-y-4`,
     `gap-x-4`,
-  ].join(" ");
+  ].join(' ');
 
   const handleFetchMore = useCallback(async () => {
     if (isPhrase) {
@@ -35,7 +35,7 @@ export const List = ({
       const res = await productApi.searchProducts(
         phrase,
         limit,
-        page || undefined
+        page || undefined,
       );
 
       if (res?.data.length) {
@@ -64,7 +64,7 @@ export const List = ({
       (entries) => {
         if (entries[0].isIntersecting && isMore) handleFetchMore();
       },
-      { rootMargin: "200px" }
+      { rootMargin: '200px' },
     );
     if (loader.current) obs.observe(loader.current);
     return () => obs.disconnect();
@@ -78,7 +78,7 @@ export const List = ({
         ))}
       </ul>
       {isMore && (
-        <div ref={loader} className="p-4">
+        <div ref={loader} className='p-4'>
           <Loader />
         </div>
       )}

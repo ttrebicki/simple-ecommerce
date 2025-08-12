@@ -1,12 +1,12 @@
-import { loadStripe } from "@stripe/stripe-js";
-import { fetcher } from "./fetcher";
-import { uri } from "../constants/uri";
-import { ISessionKeyResponse } from "../types/stripe";
-import { ICartProduct } from "../types/cart";
-import Stripe from "stripe";
+import { loadStripe } from '@stripe/stripe-js';
+import { fetcher } from './fetcher';
+import { uri } from '../constants/uri';
+import { ISessionKeyResponse } from '../types/stripe';
+import { ICartProduct } from '../types/cart';
+import Stripe from 'stripe';
 
 export const stripeClient = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
 
 export const fetchSessionKey = async ({ items }: { items: ICartProduct[] }) => {
@@ -19,7 +19,7 @@ export const fetchSessionKey = async ({ items }: { items: ICartProduct[] }) => {
 };
 
 export const mapCartToLineItems = (
-  items: ICartProduct[]
+  items: ICartProduct[],
 ): Stripe.Checkout.SessionCreateParams.LineItem[] => {
   return items.map((item) => ({
     price: item.prices[0].id,

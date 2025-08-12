@@ -1,17 +1,18 @@
-// app/api/products/route.ts
-import { IFormattedStripeProduct } from "@/lib/types/stripe";
-import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import { IFormattedStripeProduct } from '@/lib/types/stripe';
+import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  const id = url.searchParams.get("id");
+  const id = url.searchParams.get('id');
 
   if (!id)
-    return NextResponse.json({
-      status: 400,
-      message: "Product 'id' missing.",
-    });
+    return NextResponse.json(
+      {
+        message: "Product 'id' missing.",
+      },
+      { status: 400 },
+    );
 
   const stripeServer = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -30,7 +31,7 @@ export async function GET(request: Request) {
       })),
     };
 
-    return NextResponse.json(formattedProduct);
+    return NextResponse.json({ product: formattedProduct });
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }

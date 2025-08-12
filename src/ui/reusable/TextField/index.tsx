@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { forwardRef } from "react";
-import clsx from "clsx";
-import { TextFieldProps } from "./types";
+import React, { forwardRef } from 'react';
+import clsx from 'clsx';
+import { TextFieldProps } from './types';
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   (
@@ -16,19 +16,19 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       disabled,
       ...inputProps
     },
-    ref
+    ref,
   ) => {
     const inputId = id || `textfield-${Math.random().toString(36).slice(2, 8)}`;
 
     return (
       <div
-        className={`flex flex-col ${disabled ? "opacity-50" : ""} ${className}`}
+        className={`flex flex-col ${disabled ? 'opacity-50' : ''} ${className}`}
       >
-        <label htmlFor={inputId} className="text-shadow-xs text-text">
+        <label htmlFor={inputId} className='text-shadow-xs text-text'>
           {label}
           {required && (
-            <span aria-hidden className="text-red-500">
-              {" "}
+            <span aria-hidden className='text-red-500'>
+              {' '}
               *
             </span>
           )}
@@ -45,20 +45,20 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             error
               ? `${inputId}-error`
               : description
-              ? `${inputId}-desc`
-              : undefined
+                ? `${inputId}-desc`
+                : undefined
           }
           className={clsx(
-            "w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500",
+            'w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500',
             error
-              ? "border-red-500 focus:border-red-500"
-              : "border-gray-300 focus:border-blue-500",
-            className
+              ? 'border-red-500 focus:border-red-500'
+              : 'border-gray-300 focus:border-blue-500',
+            className,
           )}
         />
 
         {description && !error && (
-          <p id={`${inputId}-desc`} className="text-sm text-gray-500">
+          <p id={`${inputId}-desc`} className='text-sm text-gray-500'>
             {description}
           </p>
         )}
@@ -66,15 +66,15 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         {error && (
           <p
             id={`${inputId}-error`}
-            role="alert"
-            className="text-[10px] text-red-600"
+            role='alert'
+            className='text-[10px] text-red-600'
           >
             {error}
           </p>
         )}
       </div>
     );
-  }
+  },
 );
 
-TextField.displayName = "TextField";
+TextField.displayName = 'TextField';

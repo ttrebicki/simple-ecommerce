@@ -1,17 +1,19 @@
-import { IPrice } from "@/lib/types/stripe";
-import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import { IPrice } from '@/lib/types/stripe';
+import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
 
 export async function GET(request: Request) {
   const stripeServer = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const url = new URL(request.url);
-  const id = url.searchParams.get("id") || undefined;
+  const id = url.searchParams.get('id') || undefined;
 
   if (!id)
-    return NextResponse.json({
-      status: 400,
-      message: "Price 'id' missing.",
-    });
+    return NextResponse.json(
+      {
+        message: "Price 'id' missing.",
+      },
+      { status: 400 },
+    );
 
   try {
     const {

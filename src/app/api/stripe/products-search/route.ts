@@ -1,13 +1,13 @@
-import { IFormattedStripeProduct } from "@/lib/types/stripe";
-import { NextResponse } from "next/server";
-import Stripe from "stripe";
+import { IFormattedStripeProduct } from '@/lib/types/stripe';
+import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
 
 export async function GET(request: Request) {
   const stripeServer = new Stripe(process.env.STRIPE_SECRET_KEY!);
   const url = new URL(request.url);
-  const phraseParam = url.searchParams.get("search") ?? "";
-  const page = url.searchParams.get("page") ?? undefined;
-  const limit = parseInt(url.searchParams.get("limit") ?? "12", 10);
+  const phraseParam = url.searchParams.get('search') ?? '';
+  const page = url.searchParams.get('page') ?? undefined;
+  const limit = parseInt(url.searchParams.get('limit') ?? '12', 10);
 
   const query = `name~"${phraseParam}" AND active:'true'`;
 
@@ -34,9 +34,8 @@ export async function GET(request: Request) {
       };
     });
 
-    const formattedProducts: IFormattedStripeProduct[] = await Promise.all(
-      formattedProductsMap
-    );
+    const formattedProducts: IFormattedStripeProduct[] =
+      await Promise.all(formattedProductsMap);
 
     return NextResponse.json<
       Stripe.Response<Stripe.ApiSearchResult<IFormattedStripeProduct>>

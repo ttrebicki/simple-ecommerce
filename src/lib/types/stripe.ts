@@ -1,6 +1,6 @@
-import { StripeCheckoutContact } from "@stripe/stripe-js";
-import { ICartProduct } from "./cart";
-import Stripe from "stripe";
+import { StripeCheckoutContact } from '@stripe/stripe-js';
+import { ICartProduct } from './cart';
+import Stripe from 'stripe';
 
 export interface IStripePaymentBody {
   items: ICartProduct[];

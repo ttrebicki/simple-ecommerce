@@ -1,4 +1,4 @@
-import { IFormattedStripeProduct } from "@/lib/types/stripe";
+import { IFormattedStripeProduct } from '@/lib/types/stripe';
 
 export interface IListProps {
   initialData: IFormattedStripeProduct[];
