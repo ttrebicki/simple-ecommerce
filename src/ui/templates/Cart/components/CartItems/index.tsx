@@ -3,7 +3,7 @@
 import { ICartItemProps } from './types';
 import Image from 'next/image';
 import { Button } from '@/ui/reusable/Button';
-import { useCartStore } from '@/lib/state/cart/useCartStore';
+import { useCartStore } from '@/lib/hooks/state/useCartStore';
 import Link from 'next/link';
 import { ICartState } from '@/lib/types/cart';
 import { IconButton } from '@/ui/reusable/IconButton';

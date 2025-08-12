@@ -1,6 +1,6 @@
 'use client';
 
-import { useCartStore } from '@/lib/state/cart/useCartStore';
+import { useCartStore } from '@/lib/hooks/state/useCartStore';
 import { Button } from '../Button';
 import { IAddToCartButton } from './types';
 import toast from 'react-hot-toast';

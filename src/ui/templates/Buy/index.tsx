@@ -9,7 +9,7 @@ import { TextField } from '@/ui/reusable/TextField';
 import { CheckoutProvider } from '@stripe/react-stripe-js';
 import { useForm } from 'react-hook-form';
 import { Payment } from './components/Payment';
-import { useSessionKey } from '@/lib/hooks/useSessionKey/useSessionKey';
+import { useSessionKey } from '@/lib/hooks/useSessionKey';
 import { ICartProduct } from '@/lib/types/cart';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { buyValidator } from '@/lib/validators/buy';
@@ -37,7 +37,7 @@ export default function Buy({ products }: { products: ICartProduct[] }) {
       },
     },
   });
-  const { sessionKey, isKeyLoading } = useSessionKey(products);
+  const { sessionKey, isKeyLoading } = useSessionKey({ items: products });
 
   const name = watch('name');
   const email = watch('email');

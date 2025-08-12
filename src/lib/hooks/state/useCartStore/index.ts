@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import { ICartState } from '../../types/cart';
+import { ICartState } from '../../../types/cart';
 import { persist } from 'zustand/middleware';
 
 export const useCartStore = create<ICartState>()(

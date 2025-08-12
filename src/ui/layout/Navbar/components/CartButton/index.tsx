@@ -1,6 +1,6 @@
 'use client';
 
-import { useCartStore } from '@/lib/state/cart/useCartStore';
+import { useCartStore } from '@/lib/hooks/state/useCartStore';
 import { IconButton } from '@/ui/reusable/IconButton';
 import { MdShoppingCart } from 'react-icons/md';
 

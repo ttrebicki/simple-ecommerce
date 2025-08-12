@@ -4,7 +4,7 @@ import * as toast from '@/lib/helpers/toastError';
 import { renderHook, waitFor, act } from '@testing-library/react';
 import { mockCartProduct } from '../../../../tests/mocks/products';
 import { ICartProduct } from '../../types/cart';
-import { useSessionKey } from './useSessionKey';
+import { useSessionKey } from '.';
 
 jest.mock('@/lib/api/stripe', () => ({
   __esModule: true,

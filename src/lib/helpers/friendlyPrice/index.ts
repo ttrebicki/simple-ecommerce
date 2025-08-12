@@ -1,4 +1,4 @@
-import { IPrice } from '../types/stripe';
+import { IPrice } from '../../types/stripe';
 
 export const friendlyPrice = (price: Omit<IPrice, 'id'>) =>
   `${((price.unit_amount || 0) / 100).toFixed(

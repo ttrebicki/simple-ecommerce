@@ -1,5 +1,5 @@
 'use client';
-import { useBuyStore } from '@/lib/state/buy/useBuyStore';
+import { useBuyStore } from '@/lib/hooks/state/useBuyStore';
 import Buy from '@/ui/templates/Buy';
 import { Item } from '@/ui/templates/Cart/components/CartItems';
 import useSWR from 'swr';
